@@ -1,17 +1,27 @@
 import styled, { css } from "styled-components";
 
-interface ContainerProps {
+interface InputProps {
   isFocused: boolean;
   isFilled: boolean;
 }
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
+  border: solid 1px red;
+
+  span {
+    color: red;
+    font-size: 0.875rem;
+  }
+`;
+
+export const InputStyles = styled.div<InputProps>`
+  border: solid 1px blue;
   display: flex;
   align-items: center;
 
   background: #fff;
   border-radius: 8px;
-  padding: 18px 24px;
+  padding: 5px 20px;
   width: 100%;
   font-size: 16px;
 
@@ -43,16 +53,18 @@ export const Container = styled.div<ContainerProps>`
     flex: 1;
     background: transparent;
     border: 0;
+    border: solid 1px red;
+    height: 40px;
+    margin-left: 10px;
     color: #b7b7cc;
 
     &::placeholder {
       color: #b7b7cc;
     }
-  }
 
-  input[type="number"] {
-    margin: 0;
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
+    &[type="number"] {
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
   }
 `;

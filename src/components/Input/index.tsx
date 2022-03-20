@@ -2,17 +2,18 @@ import { useEffect, useRef, useState, useCallback } from "react";
 
 import { useField } from "@unform/core";
 
-import { Container } from "./styles";
+import { Container, InputStyles } from "./styles";
 import { IconType } from "react-icons/lib";
 
 interface InputProps {
     name: string;
-    type?: string
+    typ?: string
     icon: IconType;
     placeholder: string;
+    span?: string
 }
 
-const Input = ({ name, icon: Icon, ...rest }: InputProps) => {
+const Input = ({ name, icon: Icon, typ, span, ...rest }: InputProps) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [isFocused, setIsFocused] = useState(false);
@@ -39,17 +40,22 @@ const Input = ({ name, icon: Icon, ...rest }: InputProps) => {
     }, [fieldName, registerField]);
 
     return (
-        <Container isFilled={isFilled} isFocused={isFocused}>
-            {Icon && <Icon size={20} />}
+        <Container>
+            <InputStyles isFilled={isFilled} isFocused={isFocused}>
+                {Icon && <Icon size={20} />}
 
-            <input
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                defaultValue={defaultValue}
-                ref={inputRef}
-                required
-                {...rest}
-            />
+                <input
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    defaultValue={typ ? 3 : 'F430'}
+                    // defaultValue={defaultValue}
+                    ref={inputRef}
+                    required
+                    {...rest}
+                />
+
+            </InputStyles>
+            <span>{span}</span>
         </Container>
     );
 };

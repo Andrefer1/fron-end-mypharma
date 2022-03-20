@@ -33,7 +33,8 @@ export default function Modal({ isOpen, setIsOpen, children }: ModalProps) {
                     background: "#F0F0F5",
                     color: "#000000",
                     borderRadius: "8px",
-                    width: "736px",
+                    maxWidth: "736px",
+                    width: "80%",
                     border: "none",
                 },
                 overlay: {

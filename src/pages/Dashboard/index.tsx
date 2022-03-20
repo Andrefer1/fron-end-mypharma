@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { FiPlusSquare } from "react-icons/fi";
 
-import { ModalProduct } from "../../components/ModalProduct";
+import ModalProduct from "../../components/ModalProduct";
 import * as ProductActions from "../../app/store/actions/productActions"
 import { Product as ProductComponent } from "../../components/Product"
 
@@ -57,15 +57,13 @@ const Dashboard = ({
         setModalOpen(!modalOpen);
     }
 
-    async function handleCreateProduct(Product: Product) {
-        return createProduct(Product)
-    }
+    // async function handleCreateProduct(Product: Product) {
+    //     return createProduct(Product)
+    // }
 
     async function handleUpdateProduct(Product: Product) {
         return updateProduct(Product)
     }
-
-
 
     return (
         <Container>
@@ -88,13 +86,14 @@ const Dashboard = ({
                 isOpen={modalOpen}
                 updatingProduct={updatingProduct}
                 setIsOpen={toggleModal}
-                handleCreateProduct={handleCreateProduct}
+                // handleCreateProduct={handleCreateProduct}
                 handleUpdateProduct={handleUpdateProduct}
             />
             <h2>Produtos</h2>
 
             <ProductStyles>
                 {products.map((product: Product) => (
+
                     <ProductComponent
                         key={product._id}
                         product={product}

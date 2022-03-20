@@ -29,14 +29,6 @@ export function Product({ product, toggleModal, deleteProduct }: IProductsProps)
         })
     }
 
-    if (product.message !== undefined) {
-        return (
-            <div>
-                <div>{product.message}</div>
-            </div>
-        )
-    }
-
     return (
         <Container>
             <h3>{name}</h3>

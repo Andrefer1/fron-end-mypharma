@@ -48,6 +48,12 @@ export default function products(
       };
 
     case CREATE_PRODUCT:
+      if (action.payload.message !== undefined) {
+        return {
+          ...state,
+          loading: false,
+        };
+      }
       return {
         ...state,
         products: [...state.products, action.payload],
