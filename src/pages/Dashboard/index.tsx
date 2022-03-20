@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
 import { FiPlusSquare } from "react-icons/fi";
 
 import { ModalProduct } from "../../components/ModalProduct";
-import * as ProductActions from '../../app/store/actions/productActions'
+import * as ProductActions from "../../app/store/actions/productActions"
+import { Product as ProductComponent } from "../../components/Product"
 
 import { Container, ProductStyles } from "./styles";
 
@@ -64,26 +65,16 @@ const Dashboard = ({
         return updateProduct(Product)
     }
 
-    function currencyConverter(price: number): string {
-        return price.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        })
-    }
-
-
-    console.log(products)
-
     return (
         <Container>
             <h1>Dashboard</h1>
 
-            <div className='links'>
-                <Link to='/categories' className="link"> Categories </Link>
-                <Link to='/brands' className="link"> Brands </Link>
+            <div className="links">
+                <Link to="/categories" className="link"> Categories </Link>
+                <Link to="/brands" className="link"> Brands </Link>
             </div>
 
-            <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
+            <button className="createButton" type="button" onClick={() => toggleModal("Criar")}>
                 <div className="text">Novo Produto</div>
                 <div className="icon">
                     <FiPlusSquare size={24} />
@@ -98,32 +89,16 @@ const Dashboard = ({
                 handleCreateProduct={handleCreateProduct}
                 handleUpdateProduct={handleUpdateProduct}
             />
-            <h2>Products</h2>
+            <h2>Produtos</h2>
 
             <ProductStyles>
-
                 {products.map((product: Product) => (
-                    <div key={product._id}>
-                        <h3>{product.name}</h3>
-                        <p>{product.description}</p>
-                        <div>{currencyConverter(product.price)}</div>
-                        <div>{product.stock}</div>
-                        <div>{product.category}</div>
-                        <div>{product.brand}</div>
-
-                        <div className='buttons'>
-                            <button
-                                onClick={() => toggleModal("Editar", product)}
-                            >
-                                Editar
-                            </button>
-                            <button
-                                onClick={() => deleteProduct(product._id)}
-                            >
-                                Excluir
-                            </button>
-                        </div>
-                    </div>
+                    <ProductComponent
+                        key={product._id}
+                        product={product}
+                        toggleModal={toggleModal}
+                        deleteProduct={deleteProduct}
+                    />
                 ))}
             </ProductStyles>
         </Container>

@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   .links {
     margin-top: 20px;
+
     .link {
-      /* display: block; */
       border: solid 1px;
       padding: 10px 15px;
       color: blue;
@@ -14,8 +14,13 @@ export const Container = styled.div`
       &:first-child {
         margin-right: 20px;
       }
+
+      &:hover {
+        color: orange;
+      }
     }
   }
+
   .createButton {
     margin: 48px 0 20px 0;
     align-self: flex-end;
@@ -42,6 +47,10 @@ export const Container = styled.div`
       margin: 0 auto;
     }
   }
+
+  h2 {
+    margin-bottom: 15px;
+  }
 `;
 
 export const ProductStyles = styled.div`
@@ -57,33 +66,8 @@ export const ProductStyles = styled.div`
 
     display: flex;
     flex-direction: column;
+    flex: 0 0 200px;
     gap: 10px;
-
-    h3 {
-      border-bottom: solid 1px grey;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      border-top: solid 1px grey;
-      padding: 5px 0;
-      flex: 1;
-
-      button {
-        padding: 10px 10px;
-        width: 45%;
-        border-radius: 8px;
-        border: 0;
-
-        &:first-child {
-          background: #e9dc43;
-        }
-        &:last-child {
-          background: #ff0000;
-          color: white;
-        }
-      }
     }
   }
 `;

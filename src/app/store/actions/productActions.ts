@@ -31,8 +31,6 @@ export const getProducts = () => async (dispatch: any) => {
         }
       });
 
-    console.log(products);
-
     return dispatch({
       type: GET_PRODUCTS,
       payload: products,
@@ -47,7 +45,7 @@ export const getProducts = () => async (dispatch: any) => {
 
 export const createProduct = (product: Product) => async (dispatch: any) => {
   try {
-    const response: ApiResponse<any> = await api.post("/products", product);
+    const response = await api.post("/products", product);
 
     return dispatch({
       type: CREATE_PRODUCT,
