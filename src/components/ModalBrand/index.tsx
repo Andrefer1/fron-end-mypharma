@@ -46,7 +46,7 @@ export function ModalBrand({
             <Form onSubmit={handleSubmit} initialData={updatingBrand}>
                 <h1>{`${action}`} Marca</h1>
 
-                <Input name="name" icon={FiEdit2} placeholder="Nome da marca" required={true} />
+                <Input name="name" icon={FiEdit2} placeholder="Nome da marca" />
 
                 <button type="submit" data-testid={`${action}-brand-button`}>
                     <p className="text">{`${action}`}</p>

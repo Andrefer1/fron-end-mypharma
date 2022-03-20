@@ -49,4 +49,10 @@ export const Container = styled.div<ContainerProps>`
       color: #b7b7cc;
     }
   }
+
+  input[type="number"] {
+    margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+  }
 `;

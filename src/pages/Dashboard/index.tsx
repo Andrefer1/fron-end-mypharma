@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux"
-import { connect } from "react-redux"
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { FiPlusSquare } from "react-icons/fi";
 
 import { ModalProduct } from "../../components/ModalProduct";
@@ -65,16 +65,18 @@ const Dashboard = ({
         return updateProduct(Product)
     }
 
+
+
     return (
         <Container>
             <h1>Dashboard</h1>
 
-            <div className="links">
-                <Link to="/categories" className="link"> Categories </Link>
-                <Link to="/brands" className="link"> Brands </Link>
+            <div className='links'>
+                <Link to='/categories' className="link"> Categories </Link>
+                <Link to='/brands' className="link"> Brands </Link>
             </div>
 
-            <button className="createButton" type="button" onClick={() => toggleModal("Criar")}>
+            <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
                 <div className="text">Novo Produto</div>
                 <div className="icon">
                     <FiPlusSquare size={24} />

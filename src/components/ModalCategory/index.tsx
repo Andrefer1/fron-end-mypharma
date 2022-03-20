@@ -48,9 +48,9 @@ export function ModalCategory({
             <Form onSubmit={handleSubmit} initialData={updatingCategory}>
                 <h1>{`${action}`} Categoria</h1>
 
-                <Input name="name" icon={FiEdit2} placeholder="Nome da categoria" required={true} />
+                <Input name="name" icon={FiEdit2} placeholder="Nome da categoria" />
 
-                <Input name="description" icon={FiAlignJustify} placeholder="Descrição da categoria" required={true} />
+                <Input name="description" icon={FiAlignJustify} placeholder="Descrição da categoria" />
 
                 <button type="submit" data-testid={`${action}-category-button`}>
                     <p className="text">{`${action}`}</p>

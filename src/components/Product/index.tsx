@@ -8,6 +8,8 @@ type TProduct = {
     stock: number;
     brand: string
     category: string
+    message?: string;
+
 }
 
 interface IProductsProps {
@@ -27,12 +29,19 @@ export function Product({ product, toggleModal, deleteProduct }: IProductsProps)
         })
     }
 
+    if (product.message !== undefined) {
+        return (
+            <div>
+                <div>{product.message}</div>
+            </div>
+        )
+    }
+
     return (
         <Container>
             <h3>{name}</h3>
 
             <p>{description}</p>
-
             <div>{currencyConverter(price)}</div>
             <div>{stock}</div>
             <div>{category}</div>

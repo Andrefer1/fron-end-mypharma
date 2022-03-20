@@ -7,9 +7,9 @@ import { IconType } from "react-icons/lib";
 
 interface InputProps {
     name: string;
+    type?: string
     icon: IconType;
     placeholder: string;
-    required: boolean;
 }
 
 const Input = ({ name, icon: Icon, ...rest }: InputProps) => {
@@ -47,6 +47,7 @@ const Input = ({ name, icon: Icon, ...rest }: InputProps) => {
                 onBlur={handleInputBlur}
                 defaultValue={defaultValue}
                 ref={inputRef}
+                required
                 {...rest}
             />
         </Container>

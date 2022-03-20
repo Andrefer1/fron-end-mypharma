@@ -56,12 +56,12 @@ export function ModalProduct({
             <Form onSubmit={handleSubmit} initialData={updatingProduct}>
                 <h1>{`${action}`} Produto</h1>
 
-                <Input name="name" icon={FiEdit2} placeholder="Nome do produto" required={true} />
-                <Input name="description" icon={FiAlignJustify} placeholder="Descrição do produto" required={true} />
-                <Input name="price" icon={FiTag} placeholder="Preço do produto" required={true} />
-                <Input name="stock" icon={FiDatabase} placeholder="Estoque disponível do produto" required={true} />
-                <Input name="category" icon={FiBox} placeholder="Categoria do produto" required={true} />
-                <Input name="brand" icon={FiGlobe} placeholder="Marca do produto" required={true} />
+                <Input name="name" icon={FiEdit2} placeholder="Nome do produto" />
+                <Input name="description" icon={FiAlignJustify} placeholder="Descrição do produto" />
+                <Input name="price" type='number' icon={FiTag} placeholder="Preço do produto" />
+                <Input name="stock" type='number' icon={FiDatabase} placeholder="Estoque disponível do produto" />
+                <Input name="category" icon={FiBox} placeholder="Categoria do produto" />
+                <Input name="brand" icon={FiGlobe} placeholder="Marca do produto" />
 
                 <button type="submit" data-testid={`${action}-product-button`}>
                     <p className="text">{`${action}`}</p>
