@@ -41,10 +41,4 @@ export const Form = styled(Unform)`
       margin: 0 auto;
     }
   }
-
-  div {
-    & > div {
-      margin-bottom: 15px;
-    }
-  }
 `;

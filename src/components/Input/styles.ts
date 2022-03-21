@@ -6,6 +6,8 @@ interface InputProps {
 }
 
 export const Container = styled.div`
+  margin-bottom: 15px;
+
   span {
     color: red;
     font-size: 0.875rem;

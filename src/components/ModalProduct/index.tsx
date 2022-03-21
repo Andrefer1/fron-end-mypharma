@@ -11,7 +11,6 @@ import {
     FiBox,
     FiDatabase
 } from "react-icons/fi";
-import Select from 'react-select'
 
 import * as ProductActions from "../../app/store/actions/productActions"
 import Modal from "../Modal";
@@ -88,6 +87,7 @@ const ModalProduct = ({
 
         if (updatingProduct) {
             handleUpdateProduct({ ...product, _id: updatingProduct._id });
+            setIsOpen()
         } else {
             const { payload }: Payload = await handleCreateProduct(product)
             console.log(payload)
