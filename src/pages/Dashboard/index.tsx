@@ -77,7 +77,6 @@ const Dashboard = ({
                 updatingProduct={updatingProduct}
                 setIsOpen={toggleModal}
             />
-            <h2>Produtos</h2>
 
             <ProductStyles>
                 {products.map((product: Product) => (

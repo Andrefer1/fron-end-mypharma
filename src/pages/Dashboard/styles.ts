@@ -22,7 +22,7 @@ export const Container = styled.div`
   }
 
   .createButton {
-    margin: 48px 0 20px 0;
+    margin: 38px 0 30px 0;
     align-self: flex-end;
 
     font-weight: 600;
