@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { FiPlusSquare } from "react-icons/fi";
@@ -53,6 +54,11 @@ const Categories = ({
     return (
         <Container>
             <h1>Categories</h1>
+
+            <div className='links'>
+                <Link to='/' className="link"> Dashboard </Link>
+                <Link to='/brands' className="link"> Brands </Link>
+            </div>
 
             <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
                 <div className="text">Nova Categoria</div>

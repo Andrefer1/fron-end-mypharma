@@ -1,6 +1,26 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  .links {
+    margin-top: 20px;
+
+    .link {
+      border: solid 1px;
+      padding: 10px 15px;
+      color: blue;
+      border-radius: 8px;
+      text-decoration: none;
+
+      &:first-child {
+        margin-right: 20px;
+      }
+
+      &:hover {
+        color: orange;
+      }
+    }
+  }
+
   .createButton {
     margin: 38px 0 30px 0;
     align-self: flex-end;
