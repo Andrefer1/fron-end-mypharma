@@ -7,13 +7,12 @@ import { IconType } from "react-icons/lib";
 
 interface InputProps {
     name: string;
-    typ?: string
     icon: IconType;
     placeholder: string;
     span?: string
 }
 
-const Input = ({ name, icon: Icon, typ, span, ...rest }: InputProps) => {
+const Input = ({ name, icon: Icon, span, ...rest }: InputProps) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [isFocused, setIsFocused] = useState(false);
@@ -47,8 +46,7 @@ const Input = ({ name, icon: Icon, typ, span, ...rest }: InputProps) => {
                 <input
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
-                    defaultValue={typ ? 3 : 'F430'}
-                    // defaultValue={defaultValue}
+                    defaultValue={defaultValue}
                     ref={inputRef}
                     required
                     {...rest}

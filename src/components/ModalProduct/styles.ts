@@ -42,28 +42,9 @@ export const Form = styled(Unform)`
     }
   }
 
-  .selects {
-    div {
-      border: solid 1px red;
-      display: flex;
-      align-items: center;
-      padding: 5px 24px;
-      background: #fff;
-      border-radius: 8px;
-    }
-
-    select {
-      border: solid 1px blue;
-      width: 100%;
-      font-size: 0.8rem;
-      /* border: 0; */
-      height: 40px;
-      color: #b7b7cc;
-      /* flex: 1; */
-    }
-
-    svg {
-      margin-right: 6px;
+  div {
+    & > div {
+      margin-bottom: 15px;
     }
   }
 `;

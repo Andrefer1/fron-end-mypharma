@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import { ApiResponse } from "apisauce";
+import { ApiResponse } from "apisauce";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
@@ -11,24 +11,26 @@ import {
     FiBox,
     FiDatabase
 } from "react-icons/fi";
+import Select from 'react-select'
 
 import * as ProductActions from "../../app/store/actions/productActions"
 import Modal from "../Modal";
 import Input from "../Input";
-// import { api } from "../../services/api";
+import SelectInput from "../SelectInput";
+import { api } from "../../services/api";
 
 import { Form } from "./styles";
 
-// type Brand = {
-//     _id: string;
-//     name: string;
-// };
+type Brand = {
+    _id: string;
+    name: string;
+};
 
-// type Category = {
-//     _id: string;
-//     name: string;
-//     description: string;
-// };
+type Category = {
+    _id: string;
+    name: string;
+    description: string;
+};
 
 type Payload = {
     payload: {
@@ -53,7 +55,6 @@ interface ModalProductProps {
     updatingProduct: Product | undefined
     isOpen: boolean;
     setIsOpen: () => void;
-    // handleCreateProduct: (product: Product) => void;
     handleUpdateProduct: (product: Product) => void;
 }
 
@@ -63,34 +64,34 @@ const ModalProduct = ({
     isOpen,
     updatingProduct = undefined,
     setIsOpen,
-    // handleCreateProduct,
     handleUpdateProduct,
 }: ModalProductProps) => {
+
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
-    // const [brands, setBrands] = useState<Brand[]>([])
-    // const [categories, setCategories] = useState<Category[]>([])
+    const [brands, setBrands] = useState<Brand[]>([])
+    const [categories, setCategories] = useState<Category[]>([])
 
-    // useEffect(() => {
-    //     (async () => {
-    //         await api.get('/brands').then(
-    //             (brand: ApiResponse<any>) => setBrands(brand.data)
-    //         )
-    //         await api.get('/categories').then(
-    //             (category: ApiResponse<any>) => setCategories(category.data)
-    //         )
-
-    //     })()
-    // }, [])
-
+    useEffect(() => {
+        (async () => {
+            Promise.all([
+                api.get('/brands').then(
+                    (brand: ApiResponse<any>) => setBrands(brand.data)
+                ),
+                api.get('/categories').then(
+                    (category: ApiResponse<any>) => setCategories(category.data)
+                )
+            ])
+        })()
+    }, [])
 
     async function handleSubmit(product: Product) {
-        console.log(product)
 
         if (updatingProduct) {
             handleUpdateProduct({ ...product, _id: updatingProduct._id });
         } else {
             const { payload }: Payload = await handleCreateProduct(product)
-
+            console.log(payload)
+            console.log(payload?.message)
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
@@ -119,59 +120,32 @@ const ModalProduct = ({
                 />
                 <Input
                     name="price"
-                    typ='number'
                     icon={FiTag}
                     placeholder="Preço do produto"
                 />
                 <Input
                     name="stock"
-                    typ='number'
                     icon={FiDatabase}
                     placeholder="Estoque disponível do produto"
                 />
-                <Input
-                    name="category"
+
+                <SelectInput
+                    name='category'
                     icon={FiBox}
-                    placeholder="Categoria do produto"
-                />
-                <Input
-                    name="brand"
-                    icon={FiGlobe}
-                    placeholder="Marca do produto"
+                    brandsOrCategories={categories}
+                    nameDataBeingUpdated={updatingProduct?.category}
                 />
 
-                {/* <div className="selects">
-                    <div>
-                        <FiBox size={24} />
-                        <select name='price'>
-                            <option value={updatingProduct?.category}> Selecione uma categoria </option>
-                            {categories.map((category: Brand) => (
-                                <option
-                                    value={category.name}
-                                    selected={category.name === updatingProduct?.category ? true : false}>
-                                    {category.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <FiGlobe size={24} />
-                        <select name='category'>
-                            <option value={updatingProduct?.brand}> Selecione uma categoria </option>
-                            {brands.map((brand: Brand) => (
-                                <option
-                                    value={brand.name}
-                                    selected={brand.name === updatingProduct?.brand ? true : false}>
-                                    {brand.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                </div> */}
+                <SelectInput
+                    name='brand'
+                    icon={FiGlobe}
+                    brandsOrCategories={brands}
+                    nameDataBeingUpdated={updatingProduct?.brand}
+                />
 
                 <button
                     type="submit"
-                // data-testid={`${action}-product-button`}
+                    data-testid={`${action}-product-button`}
                 >
                     <p className="text">{`${action}`}</p>
                     <div className="icon">

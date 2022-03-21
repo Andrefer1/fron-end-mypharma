@@ -6,8 +6,6 @@ interface InputProps {
 }
 
 export const Container = styled.div`
-  border: solid 1px red;
-
   span {
     color: red;
     font-size: 0.875rem;
@@ -15,7 +13,6 @@ export const Container = styled.div`
 `;
 
 export const InputStyles = styled.div<InputProps>`
-  border: solid 1px blue;
   display: flex;
   align-items: center;
 
@@ -53,7 +50,6 @@ export const InputStyles = styled.div<InputProps>`
     flex: 1;
     background: transparent;
     border: 0;
-    border: solid 1px red;
     height: 40px;
     margin-left: 10px;
     color: #b7b7cc;

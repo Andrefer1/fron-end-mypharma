@@ -45,7 +45,10 @@ export const getProducts = () => async (dispatch: any) => {
 
 export const createProduct = (product: Product) => async (dispatch: any) => {
   try {
+    console.log(product);
     const response = await api.post("/products", product);
+
+    console.log(response);
 
     return dispatch({
       type: CREATE_PRODUCT,
