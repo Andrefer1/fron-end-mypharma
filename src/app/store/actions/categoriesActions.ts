@@ -55,26 +55,21 @@ export const createCategory = (category: Category) => async (dispatch: any) => {
   }
 };
 
-export const updateCategory =
-  ({ _id, name, description }: Category) =>
-  async (dispatch: any) => {
-    try {
-      await api.put(`/categories/${_id}`, {
-        name,
-        description,
-      });
+export const updateCategory = (category: Category) => async (dispatch: any) => {
+  try {
+    const response = await api.put(`/categories/${category._id}`, category);
 
-      return dispatch({
-        type: UPDATE_CATEGORY,
-        payload: { _id, name, description },
-      });
-    } catch (e) {
-      return dispatch({
-        type: CATEGORIES_ERROR,
-        payload: console.log(e),
-      });
-    }
-  };
+    return dispatch({
+      type: UPDATE_CATEGORY,
+      payload: response.data === null ? category : response.data,
+    });
+  } catch (e) {
+    return dispatch({
+      type: CATEGORIES_ERROR,
+      payload: console.log(e),
+    });
+  }
+};
 
 export const deleteCategory = (id: string) => async (dispatch: any) => {
   try {

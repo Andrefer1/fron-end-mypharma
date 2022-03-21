@@ -161,7 +161,6 @@ const ModalProduct = ({
     );
 }
 
-
 const mapStateToProps = (state: any) => ({
     products: state.products.products
 })

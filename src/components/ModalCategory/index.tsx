@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import {
     FiCheckSquare,
     FiEdit2,
     FiAlignJustify,
 } from "react-icons/fi";
 
+import * as CategoryActions from "../../app/store/actions/categoriesActions"
 import Modal from "../Modal";
 import Input from "../Input";
 
@@ -16,34 +19,56 @@ interface Category {
     description: string;
 }
 
+type Payload = {
+    payload: {
+        message: string;
+        statusCode: number
+    }
+}
+
 interface ModalCategoryProps {
+    createCategory?: any
+    updateCategory?: any
     action: string
     updatingCategory: Category | undefined
     isOpen: boolean;
     setIsOpen: () => void;
-    handleCreateCategory: (category: Category) => void;
-    handleUpdateCategory: (category: Category) => void;
 }
 
-export function ModalCategory({
+const ModalCategory = ({
+    createCategory,
+    updateCategory,
     action,
     isOpen,
     updatingCategory = undefined,
     setIsOpen,
-    handleCreateCategory,
-    handleUpdateCategory,
-}: ModalCategoryProps) {
+}: ModalCategoryProps) => {
+
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
 
     async function handleSubmit(category: Category) {
 
         if (updatingCategory) {
-            handleUpdateCategory({ ...category, _id: updatingCategory._id });
-        } else {
-            handleCreateCategory(category);
-        }
+            const { payload }: Payload = await handleUpdateCategory({ ...category, _id: updatingCategory._id });
 
-        setIsOpen();
+            setErrorMessage(payload?.message)
+
+            payload?.message === undefined && setIsOpen()
+        } else {
+            const { payload }: Payload = await handleCreateCategory(category);
+
+            setErrorMessage(payload?.message)
+
+            payload?.message === undefined && setIsOpen()
+        }
+    }
+
+    async function handleCreateCategory(category: Category) {
+        return await createCategory(category)
+    }
+
+    function handleUpdateCategory(category: Category) {
+        return updateCategory(category)
     }
 
     return (
@@ -69,3 +94,8 @@ export function ModalCategory({
         </Modal >
     );
 }
+
+const mapDispatchToProps = (dispatch: any) =>
+    bindActionCreators(CategoryActions, dispatch)
+
+export default connect(null, mapDispatchToProps)(ModalCategory)

@@ -45,10 +45,7 @@ export const getProducts = () => async (dispatch: any) => {
 
 export const createProduct = (product: Product) => async (dispatch: any) => {
   try {
-    console.log(product);
     const response = await api.post("/products", product);
-
-    console.log(response);
 
     return dispatch({
       type: CREATE_PRODUCT,
@@ -68,7 +65,7 @@ export const updateProduct = (product: Product) => async (dispatch: any) => {
 
     return dispatch({
       type: UPDATE_PRODUCT,
-      payload: response.data,
+      payload: response.data === null ? product : response.data,
     });
   } catch (e) {
     return dispatch({

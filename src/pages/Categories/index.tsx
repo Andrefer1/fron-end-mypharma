@@ -3,8 +3,9 @@ import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { FiPlusSquare } from "react-icons/fi";
 
-import { ModalCategory } from "../../components/ModalCategory";
+import ModalCategory from "../../components/ModalCategory";
 import * as CategoriesActions from "../../app/store/actions/categoriesActions"
+import { Category as CategoryComponent } from "../../components/Category"
 
 import { Container, CategoryStyles } from "./styles";
 
@@ -25,8 +26,6 @@ type CategoriesProps = {
 const Categories = ({
     categories,
     getCategories,
-    createCategory,
-    updateCategory,
     deleteCategory
 }: CategoriesProps) => {
 
@@ -51,14 +50,6 @@ const Categories = ({
         setModalOpen(!modalOpen);
     }
 
-    async function handleCreateCategory(category: Category) {
-        return createCategory(category)
-    }
-
-    async function handleUpdateCategory(category: Category) {
-        return updateCategory(category)
-    }
-
     return (
         <Container>
             <h1>Categories</h1>
@@ -75,30 +66,17 @@ const Categories = ({
                 isOpen={modalOpen}
                 updatingCategory={updatingCategory}
                 setIsOpen={toggleModal}
-                handleCreateCategory={handleCreateCategory}
-                handleUpdateCategory={handleUpdateCategory}
             />
 
             <CategoryStyles>
-                {categories && categories.map((category: Category) => (
-                    <div key={category._id}>
-                        <h3>{category.name}</h3>
-                        <p>{category.description}</p>
+                {categories.map((category: Category) => (
 
-                        <div className='buttons'>
-                            <button
-                                onClick={() => toggleModal("Editar", category)}
-
-                            >
-                                Editar
-                            </button>
-                            <button
-                                onClick={() => deleteCategory(category._id)}
-                            >
-                                Excluir
-                            </button>
-                        </div>
-                    </div>
+                    <CategoryComponent
+                        key={category._id}
+                        category={category}
+                        toggleModal={toggleModal}
+                        deleteCategory={deleteCategory}
+                    />
                 ))}
             </CategoryStyles>
         </Container>

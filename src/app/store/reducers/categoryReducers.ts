@@ -34,6 +34,12 @@ export default function category(state = INITIAL_STATE, action: any) {
       };
 
     case CREATE_CATEGORY:
+      if (action.payload.message !== undefined) {
+        return {
+          ...state,
+          loading: false,
+        };
+      }
       return {
         ...state,
         categories: [...state.categories, action.payload],
