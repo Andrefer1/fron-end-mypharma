@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
     FiCheckSquare,
     FiEdit2,
@@ -32,6 +33,8 @@ export function ModalCategory({
     handleCreateCategory,
     handleUpdateCategory,
 }: ModalCategoryProps) {
+    const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
+
     async function handleSubmit(category: Category) {
 
         if (updatingCategory) {
@@ -48,7 +51,11 @@ export function ModalCategory({
             <Form onSubmit={handleSubmit} initialData={updatingCategory}>
                 <h1>{`${action}`} Categoria</h1>
 
-                <Input name="name" icon={FiEdit2} placeholder="Nome da categoria" />
+                <Input
+                    name="name" icon={FiEdit2}
+                    placeholder="Nome da categoria"
+                    span={errorMessage}
+                />
 
                 <Input name="description" icon={FiAlignJustify} placeholder="Descrição da categoria" />
 

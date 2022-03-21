@@ -50,20 +50,20 @@ interface Product {
 
 interface ModalProductProps {
     createProduct?: any;
+    updateProduct?: any
     action: string
     updatingProduct: Product | undefined
     isOpen: boolean;
     setIsOpen: () => void;
-    handleUpdateProduct: (product: Product) => void;
 }
 
 const ModalProduct = ({
     createProduct,
+    updateProduct,
     action,
     isOpen,
     updatingProduct = undefined,
     setIsOpen,
-    handleUpdateProduct,
 }: ModalProductProps) => {
 
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
@@ -86,12 +86,12 @@ const ModalProduct = ({
     async function handleSubmit(product: Product) {
 
         if (updatingProduct) {
-            handleUpdateProduct({ ...product, _id: updatingProduct._id });
-            setIsOpen()
+            const { payload }: Payload = await handleUpdateProduct({ ...product, _id: updatingProduct._id });
+            setErrorMessage(payload?.message)
+
+            payload?.message === undefined && setIsOpen()
         } else {
             const { payload }: Payload = await handleCreateProduct(product)
-            console.log(payload)
-            console.log(payload?.message)
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
@@ -100,6 +100,10 @@ const ModalProduct = ({
 
     async function handleCreateProduct(Product: Product) {
         return createProduct(Product)
+    }
+
+    async function handleUpdateProduct(Product: Product) {
+        return updateProduct(Product)
     }
 
     return (

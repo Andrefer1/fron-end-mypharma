@@ -31,8 +31,6 @@ type DashboardProps = {
 const Dashboard = ({
     products,
     getProducts,
-    createProduct,
-    updateProduct,
     deleteProduct
 }: DashboardProps) => {
 
@@ -57,14 +55,6 @@ const Dashboard = ({
         setModalOpen(!modalOpen);
     }
 
-    // async function handleCreateProduct(Product: Product) {
-    //     return createProduct(Product)
-    // }
-
-    async function handleUpdateProduct(Product: Product) {
-        return updateProduct(Product)
-    }
-
     return (
         <Container>
             <h1>Dashboard</h1>
@@ -86,8 +76,6 @@ const Dashboard = ({
                 isOpen={modalOpen}
                 updatingProduct={updatingProduct}
                 setIsOpen={toggleModal}
-                // handleCreateProduct={handleCreateProduct}
-                handleUpdateProduct={handleUpdateProduct}
             />
             <h2>Produtos</h2>
 

@@ -64,11 +64,11 @@ export const createProduct = (product: Product) => async (dispatch: any) => {
 
 export const updateProduct = (product: Product) => async (dispatch: any) => {
   try {
-    await api.put(`/products/${product._id}`, product);
+    const response = await api.put(`/products/${product._id}`, product);
 
     return dispatch({
       type: UPDATE_PRODUCT,
-      payload: product,
+      payload: response.data,
     });
   } catch (e) {
     return dispatch({
