@@ -1,8 +1,12 @@
+import { useState } from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import {
     FiCheckSquare,
     FiEdit2,
 } from "react-icons/fi";
 
+import * as BrandActions from "../../app/store/actions/brandsActions"
 import Modal from "../Modal";
 import Input from "../Input";
 
@@ -13,32 +17,55 @@ interface Brand {
     name: string;
 }
 
+type Payload = {
+    payload: {
+        message: string;
+        statusCode: number
+    }
+}
+
 interface ModalBrandProps {
+    createBrand?: any
+    updateBrand?: any
     action: string
     updatingBrand: Brand | undefined
     isOpen: boolean;
     setIsOpen: () => void;
-    handleCreateBrand: (brand: Brand) => void;
-    handleUpdateBrand: (brand: Brand) => void;
 }
 
-export function ModalBrand({
+const ModalBrand = ({
+    createBrand,
+    updateBrand,
     action,
     isOpen,
     updatingBrand = undefined,
     setIsOpen,
-    handleCreateBrand,
-    handleUpdateBrand,
-}: ModalBrandProps) {
+}: ModalBrandProps) => {
+
+    const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
+
     async function handleSubmit(brand: Brand) {
 
         if (updatingBrand) {
-            handleUpdateBrand({ ...brand, _id: updatingBrand._id });
-        } else {
-            handleCreateBrand(brand);
-        }
+            const { payload }: Payload = await handleUpdateBrand({ ...brand, _id: updatingBrand._id });
+            setErrorMessage(payload?.message)
 
-        setIsOpen();
+            payload?.message === undefined && setIsOpen()
+        } else {
+            const { payload }: Payload = await handleCreateBrand(brand);
+
+            setErrorMessage(payload?.message)
+
+            payload?.message === undefined && setIsOpen()
+        }
+    }
+
+    function handleCreateBrand(brand: Brand) {
+        return createBrand(brand)
+    }
+
+    function handleUpdateBrand(brand: Brand) {
+        return updateBrand(brand)
     }
 
     return (
@@ -46,7 +73,12 @@ export function ModalBrand({
             <Form onSubmit={handleSubmit} initialData={updatingBrand}>
                 <h1>{`${action}`} Marca</h1>
 
-                <Input name="name" icon={FiEdit2} placeholder="Nome da marca" />
+                <Input
+                    name="name"
+                    icon={FiEdit2}
+                    placeholder="Nome da marca"
+                    span={errorMessage}
+                />
 
                 <button type="submit" data-testid={`${action}-brand-button`}>
                     <p className="text">{`${action}`}</p>
@@ -58,3 +90,8 @@ export function ModalBrand({
         </Modal >
     );
 }
+
+const mapDispatchToProps = (dispatch: any) =>
+    bindActionCreators(BrandActions, dispatch)
+
+export default connect(null, mapDispatchToProps)(ModalBrand)

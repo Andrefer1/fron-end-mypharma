@@ -29,6 +29,12 @@ export default function category(state = INITIAL_STATE, action: any) {
       };
 
     case CREATE_BRAND:
+      if (action.payload.message !== undefined) {
+        return {
+          ...state,
+          loading: false,
+        };
+      }
       return {
         ...state,
         brands: [...state.brands, action.payload],

@@ -63,8 +63,8 @@ const ModalCategory = ({
         }
     }
 
-    async function handleCreateCategory(category: Category) {
-        return await createCategory(category)
+    function handleCreateCategory(category: Category) {
+        return createCategory(category)
     }
 
     function handleUpdateCategory(category: Category) {
@@ -82,7 +82,11 @@ const ModalCategory = ({
                     span={errorMessage}
                 />
 
-                <Input name="description" icon={FiAlignJustify} placeholder="Descrição da categoria" />
+                <Input
+                    name="description"
+                    icon={FiAlignJustify}
+                    placeholder="Descrição da categoria"
+                />
 
                 <button type="submit" data-testid={`${action}-category-button`}>
                     <p className="text">{`${action}`}</p>

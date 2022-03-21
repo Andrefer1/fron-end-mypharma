@@ -98,11 +98,11 @@ const ModalProduct = ({
         }
     }
 
-    async function handleCreateProduct(Product: Product) {
+    function handleCreateProduct(Product: Product) {
         return createProduct(Product)
     }
 
-    async function handleUpdateProduct(Product: Product) {
+    function handleUpdateProduct(Product: Product) {
         return updateProduct(Product)
     }
 

@@ -40,7 +40,7 @@ export const getBrands = () => async (dispatch: any) => {
 
 export const createBrand = (brand: Brand) => async (dispatch: any) => {
   try {
-    const response: ApiResponse<any> = await api.post("/brands", brand);
+    const response = await api.post("/brands", brand);
 
     return dispatch({
       type: CREATE_BRAND,
@@ -54,23 +54,21 @@ export const createBrand = (brand: Brand) => async (dispatch: any) => {
   }
 };
 
-export const updateBrand =
-  ({ _id, name }: Brand) =>
-  async (dispatch: any) => {
-    try {
-      await api.put(`/brands/${_id}`, { name });
+export const updateBrand = (brand: Brand) => async (dispatch: any) => {
+  try {
+    const response = await api.put(`/brands/${brand._id}`, brand);
 
-      return dispatch({
-        type: UPDATE_BRAND,
-        payload: { _id, name },
-      });
-    } catch (e) {
-      return dispatch({
-        type: BRANDS_ERROR,
-        payload: console.log(e),
-      });
-    }
-  };
+    return dispatch({
+      type: UPDATE_BRAND,
+      payload: response.data === null ? brand : response.data,
+    });
+  } catch (e) {
+    return dispatch({
+      type: BRANDS_ERROR,
+      payload: console.log(e),
+    });
+  }
+};
 
 export const deleteBrand = (id: string) => async (dispatch: any) => {
   try {

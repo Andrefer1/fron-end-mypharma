@@ -70,7 +70,6 @@ const Categories = ({
 
             <CategoryStyles>
                 {categories.map((category: Category) => (
-
                     <CategoryComponent
                         key={category._id}
                         category={category}

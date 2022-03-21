@@ -23,7 +23,7 @@ const INITIAL_STATE: InitialStateProps = {
 
 export default function category(state = INITIAL_STATE, action: any) {
   let newCategories: Category[] | [] = [];
-  let categoryIndex: number = 0;
+  let categoryIndex: number = -1;
 
   switch (action.type) {
     case GET_CATEGORIES:
