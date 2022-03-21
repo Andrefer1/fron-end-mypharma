@@ -8,7 +8,7 @@ import ModalProduct from "../../components/ModalProduct";
 import * as ProductActions from "../../app/store/actions/productActions"
 import { Product as ProductComponent } from "../../components/Product"
 
-import { Container, ProductStyles } from "./styles";
+import { Container, Content, ProductStyles } from "./styles";
 
 type Product = {
     _id: string;
@@ -57,38 +57,43 @@ const Dashboard = ({
 
     return (
         <Container>
-            <h1>Dashboard</h1>
+            <Content>
+                <h1>Dashboard</h1>
 
-            <div className='links'>
-                <Link to='/categories' className="link"> Categories </Link>
-                <Link to='/brands' className="link"> Brands </Link>
-            </div>
-
-            <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
-                <div className="text">Novo Produto</div>
-                <div className="icon">
-                    <FiPlusSquare size={24} />
+                <div className='links'>
+                    <Link to='/categories' className="link"> Categories </Link>
+                    <Link to='/brands' className="link"> Brands </Link>
                 </div>
-            </button>
 
-            <ModalProduct
-                action={action}
-                isOpen={modalOpen}
-                updatingProduct={updatingProduct}
-                setIsOpen={toggleModal}
-            />
+                <div>
+                    <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
+                        <div className="text">Novo Produto</div>
+                        <div className="icon">
+                            <FiPlusSquare size={24} />
+                        </div>
+                    </button>
+                </div>
 
-            <ProductStyles>
-                {products.map((product: Product) => (
 
-                    <ProductComponent
-                        key={product._id}
-                        product={product}
-                        toggleModal={toggleModal}
-                        deleteProduct={deleteProduct}
-                    />
-                ))}
-            </ProductStyles>
+                <ModalProduct
+                    action={action}
+                    isOpen={modalOpen}
+                    updatingProduct={updatingProduct}
+                    setIsOpen={toggleModal}
+                />
+
+                <ProductStyles>
+                    {products.map((product: Product) => (
+
+                        <ProductComponent
+                            key={product._id}
+                            product={product}
+                            toggleModal={toggleModal}
+                            deleteProduct={deleteProduct}
+                        />
+                    ))}
+                </ProductStyles>
+            </Content>
         </Container>
     )
 }

@@ -8,7 +8,7 @@ import * as BrandsActions from "../../app/store/actions/brandsActions"
 import { FiPlusSquare } from "react-icons/fi";
 import { Brand as BrandComponent } from "../../components/Brand"
 
-import { Container, BrandStyles } from "./styles";
+import { Container, Content, BrandStyles } from "./styles";
 
 type Brand = {
     _id: string;
@@ -50,37 +50,41 @@ const Brands = ({
 
     return (
         <Container>
-            <h1>Brands</h1>
+            <Content>
+                <h1>Brands</h1>
 
-            <div className='links'>
-                <Link to='/' className="link"> Dashboard </Link>
-                <Link to='/categories' className="link"> Categories </Link>
-            </div>
-
-            <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
-                <div className="text">Nova Marca</div>
-                <div className="icon">
-                    <FiPlusSquare size={24} />
+                <div className='links'>
+                    <Link to='/' className="link"> Dashboard </Link>
+                    <Link to='/categories' className="link"> Categories </Link>
                 </div>
-            </button>
 
-            <ModalBrand
-                action={action}
-                isOpen={modalOpen}
-                updatingBrand={updatingBrand}
-                setIsOpen={toggleModal}
-            />
+                <div>
+                    <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
+                        <div className="text">Nova Marca</div>
+                        <div className="icon">
+                            <FiPlusSquare size={24} />
+                        </div>
+                    </button>
+                </div>
 
-            <BrandStyles>
-                {brands.map((brand: Brand) => (
-                    <BrandComponent
-                        key={brand._id}
-                        brand={brand}
-                        toggleModal={toggleModal}
-                        deleteBrand={deleteBrand}
-                    />
-                ))}
-            </BrandStyles>
+                <ModalBrand
+                    action={action}
+                    isOpen={modalOpen}
+                    updatingBrand={updatingBrand}
+                    setIsOpen={toggleModal}
+                />
+
+                <BrandStyles>
+                    {brands.map((brand: Brand) => (
+                        <BrandComponent
+                            key={brand._id}
+                            brand={brand}
+                            toggleModal={toggleModal}
+                            deleteBrand={deleteBrand}
+                        />
+                    ))}
+                </BrandStyles>
+            </Content>
         </Container>
     )
 }

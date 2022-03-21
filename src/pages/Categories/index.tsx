@@ -8,7 +8,7 @@ import ModalCategory from "../../components/ModalCategory";
 import * as CategoriesActions from "../../app/store/actions/categoriesActions"
 import { Category as CategoryComponent } from "../../components/Category"
 
-import { Container, CategoryStyles } from "./styles";
+import { Container, Content, CategoryStyles } from "./styles";
 
 type Category = {
     _id: string;
@@ -53,37 +53,41 @@ const Categories = ({
 
     return (
         <Container>
-            <h1>Categories</h1>
+            <Content>
+                <h1>Categories</h1>
 
-            <div className='links'>
-                <Link to='/' className="link"> Dashboard </Link>
-                <Link to='/brands' className="link"> Brands </Link>
-            </div>
-
-            <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
-                <div className="text">Nova Categoria</div>
-                <div className="icon">
-                    <FiPlusSquare size={24} />
+                <div className='links'>
+                    <Link to='/' className="link"> Dashboard </Link>
+                    <Link to='/brands' className="link"> Brands </Link>
                 </div>
-            </button>
 
-            <ModalCategory
-                action={action}
-                isOpen={modalOpen}
-                updatingCategory={updatingCategory}
-                setIsOpen={toggleModal}
-            />
+                <div>
+                    <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
+                        <div className="text">Nova Categoria</div>
+                        <div className="icon">
+                            <FiPlusSquare size={24} />
+                        </div>
+                    </button>
+                </div>
 
-            <CategoryStyles>
-                {categories.map((category: Category) => (
-                    <CategoryComponent
-                        key={category._id}
-                        category={category}
-                        toggleModal={toggleModal}
-                        deleteCategory={deleteCategory}
-                    />
-                ))}
-            </CategoryStyles>
+                <ModalCategory
+                    action={action}
+                    isOpen={modalOpen}
+                    updatingCategory={updatingCategory}
+                    setIsOpen={toggleModal}
+                />
+
+                <CategoryStyles>
+                    {categories.map((category: Category) => (
+                        <CategoryComponent
+                            key={category._id}
+                            category={category}
+                            toggleModal={toggleModal}
+                            deleteCategory={deleteCategory}
+                        />
+                    ))}
+                </CategoryStyles>
+            </Content>
         </Container>
     )
 }
