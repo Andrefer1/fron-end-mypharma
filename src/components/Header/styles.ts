@@ -7,6 +7,8 @@ export const Container = styled.div`
 export const Content = styled.div`
   p {
     font-size: 1.2rem;
+    white-space: nowrap;
+    margin-bottom: 10px;
   }
 
   button {
