@@ -1,3 +1,7 @@
+export const GET_USER = "GET_USER";
+export const CREATE_USER = "CREATE_USER";
+export const USER_ERROR = "USER_ERROR";
+
 export const GET_BRANDS = "GET_BRANDS";
 export const CREATE_BRAND = "CREATE_BRAND";
 export const UPDATE_BRAND = "UPDATE_BRAND";
