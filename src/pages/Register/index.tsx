@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import { FiPlusSquare } from "react-icons/fi";
+import { FiUser, FiMail, FiLock } from "react-icons/fi";
 
 import * as UserActions from "../../app/store/actions/userActions"
 
@@ -56,34 +56,34 @@ const Register = ({ user, createUser }: RegisterProps) => {
                         name="name"
                         type="text"
                         placeholder="Ex.: Fulano"
-                        icon={FiPlusSquare}
+                        icon={FiUser}
                     />
                     <Input
                         name="email"
                         type="email"
                         placeholder="Ex.: fulano@provedor.com"
-                        icon={FiPlusSquare}
+                        icon={FiMail}
                         span={errorMessage}
                     />
                     <Input
                         name="password"
                         type="password"
                         placeholder="Digite sua senha"
-                        icon={FiPlusSquare}
+                        icon={FiLock}
                         spanPassword={errorMessagePassword}
                     />
                     <Input
                         name="confirmPassword"
                         type="password"
                         placeholder="Confirme sua senha"
-                        icon={FiPlusSquare}
+                        icon={FiLock}
                         spanPassword={errorMessagePassword}
                     />
 
                     <button type="submit">Cadastrar</button>
                 </Form>
 
-                <Link to="/auth/login">Login</Link>
+                <Link id='link' to="/auth/login">Login</Link>
             </Content>
         </Container>
     )

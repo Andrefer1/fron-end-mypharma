@@ -6,15 +6,9 @@ import { FiMail, FiLock } from "react-icons/fi";
 
 import * as UserActions from "../../app/store/actions/userActions"
 
-import { Container, Content, Form } from "./styles";
 import Input from "../../components/Input";
 
-type Payload = {
-    payload: {
-        message: string;
-        statusCode: number
-    }
-}
+import { Container, Content, Form } from "./styles";
 
 type User = {
     _id: string;
