@@ -109,16 +109,19 @@ const ModalProduct = ({
                     placeholder="Nome do produto"
                     span={errorMessage}
                 />
+
                 <Input
                     name="description"
                     icon={FiAlignJustify}
                     placeholder="Descrição do produto"
                 />
+
                 <Input
                     name="price"
                     icon={FiTag}
                     placeholder="Preço do produto"
                 />
+
                 <Input
                     name="stock"
                     icon={FiDatabase}
