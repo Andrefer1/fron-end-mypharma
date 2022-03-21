@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 
@@ -50,6 +51,11 @@ const Brands = ({
     return (
         <Container>
             <h1>Brands</h1>
+
+            <div className='links'>
+                <Link to='/' className="link"> Dashboard </Link>
+                <Link to='/categories' className="link"> Categories </Link>
+            </div>
 
             <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
                 <div className="text">Nova Marca</div>
