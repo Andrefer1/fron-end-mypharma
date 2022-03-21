@@ -6,8 +6,8 @@ export const Container = styled.div`
   gap: 30px;
 
   border-radius: 8px;
-  width: 250px;
-  max-width: 220px;
+  width: 190px;
+  max-width: 190px;
   padding: 10px 15px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
 
