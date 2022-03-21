@@ -1,31 +1,21 @@
-import { ApiResponse } from "apisauce";
-
 import { api } from "../../../services/api";
 import { GET_USER, CREATE_USER, USER_ERROR } from "../types";
 
 type User = {
   _id: string;
   name: string;
-  description: string;
-  price: number;
-  stock: number;
-  brand: string;
-  category: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
 };
 
-export const getUser = () => async (dispatch: any) => {
+export const getUser = (user: User) => async (dispatch: any) => {
   try {
-    const user = await api.get("/user").then((response: ApiResponse<any>) => {
-      const { ok, data } = response;
-
-      if (ok) {
-        return data;
-      }
-    });
+    const response = await api.post("/auth/login", user);
 
     return dispatch({
       type: GET_USER,
-      payload: user,
+      payload: response.data,
     });
   } catch (e) {
     return dispatch({
@@ -37,7 +27,7 @@ export const getUser = () => async (dispatch: any) => {
 
 export const createUser = (user: User) => async (dispatch: any) => {
   try {
-    const response = await api.post("/user", user);
+    const response = await api.post("/auth/register", user);
 
     return dispatch({
       type: CREATE_USER,

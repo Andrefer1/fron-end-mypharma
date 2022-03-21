@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
+import { FiPlusSquare } from "react-icons/fi";
+
+import * as BrandsActions from "../../app/store/actions/brandsActions"
 
 import ModalBrand from "../../components/ModalBrand";
-import * as BrandsActions from "../../app/store/actions/brandsActions"
-import { FiPlusSquare } from "react-icons/fi";
 import { Brand as BrandComponent } from "../../components/Brand"
+import Header from "../../components/Header";
 
 import { Container, Content, BrandStyles } from "./styles";
 
@@ -33,6 +35,18 @@ const Brands = ({
         updatingBrand,
         setUpdatingBrand
     ] = useState<Brand | undefined>(undefined);
+    const [session, setSession] = useState<string | void>("")
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const isActive = localStorage.getItem("@mypharma/email")
+
+        if (!session && !isActive) {
+            return navigate("/auth/login")
+        }
+    }, [session, navigate])
+
 
     useEffect(() => {
         getBrands()
@@ -50,6 +64,8 @@ const Brands = ({
 
     return (
         <Container>
+            <Header setSessionIsActive={setSession} />
+
             <Content>
                 <h1>Brands</h1>
 

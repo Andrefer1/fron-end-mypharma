@@ -10,10 +10,11 @@ export default function Routes() {
   return (
     <Router>
       <Route path="/" element={<Dashboard />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
       <Route path="/categories" element={<Categories />} />
       <Route path="/brands" element={<Brands />} />
+
+      <Route path="/auth/login" element={<Login />} />
+      <Route path="/auth/register" element={<Register />} />
     </Router>
   );
 }

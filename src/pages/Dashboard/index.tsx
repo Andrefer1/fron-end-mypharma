@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { FiPlusSquare } from "react-icons/fi";
 
-import ModalProduct from "../../components/ModalProduct";
 import * as ProductActions from "../../app/store/actions/productActions"
+
+import ModalProduct from "../../components/ModalProduct";
 import { Product as ProductComponent } from "../../components/Product"
+import Header from "../../components/Header";
 
 import { Container, Content, ProductStyles } from "./styles";
 
@@ -40,6 +42,17 @@ const Dashboard = ({
         updatingProduct,
         setUpdatingProduct
     ] = useState<Product | undefined>(undefined);
+    const [session, setSession] = useState<string | void>("")
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const isActive = localStorage.getItem("@mypharma/email")
+
+        if (!session && !isActive) {
+            return navigate("/auth/login")
+        }
+    }, [session, navigate])
 
     useEffect(() => {
         getProducts()
@@ -57,6 +70,8 @@ const Dashboard = ({
 
     return (
         <Container>
+            <Header setSessionIsActive={setSession} />
+
             <Content>
                 <h1>Dashboard</h1>
 

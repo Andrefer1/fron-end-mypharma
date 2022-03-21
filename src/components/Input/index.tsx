@@ -8,10 +8,12 @@ interface InputProps {
     name: string;
     icon: IconType;
     placeholder: string;
+    type?: string
     span?: string
+    spanPassword?: string;
 }
 
-const Input = ({ name, icon: Icon, span, ...rest }: InputProps) => {
+const Input = ({ name, icon: Icon, span, spanPassword, ...rest }: InputProps) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [isFocused, setIsFocused] = useState(false);
@@ -52,7 +54,8 @@ const Input = ({ name, icon: Icon, span, ...rest }: InputProps) => {
                 />
 
             </InputStyles>
-            <span>{span}</span>
+
+            <span>{!spanPassword ? span : spanPassword}</span>
         </Container>
     );
 };

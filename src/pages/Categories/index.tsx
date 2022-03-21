@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { FiPlusSquare } from "react-icons/fi";
 
-import ModalCategory from "../../components/ModalCategory";
 import * as CategoriesActions from "../../app/store/actions/categoriesActions"
+
+import ModalCategory from "../../components/ModalCategory";
 import { Category as CategoryComponent } from "../../components/Category"
+import Header from "../../components/Header";
 
 import { Container, Content, CategoryStyles } from "./styles";
 
@@ -36,6 +38,18 @@ const Categories = ({
         updatingCategory,
         setUpdatingCategory
     ] = useState<Category | undefined>(undefined);
+    const [session, setSession] = useState<string | void>("")
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const isActive = localStorage.getItem("@mypharma/email")
+
+        if (!session && !isActive) {
+            return navigate("/auth/login")
+        }
+    }, [session, navigate])
+
 
     useEffect(() => {
         getCategories()
@@ -53,6 +67,8 @@ const Categories = ({
 
     return (
         <Container>
+            <Header setSessionIsActive={setSession} />
+
             <Content>
                 <h1>Categories</h1>
 
