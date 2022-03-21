@@ -47,25 +47,17 @@ const ModalBrand = ({
     async function handleSubmit(brand: Brand) {
 
         if (updatingBrand) {
-            const { payload }: Payload = await handleUpdateBrand({ ...brand, _id: updatingBrand._id });
+            const { payload }: Payload = await updateBrand({ ...brand, _id: updatingBrand._id });
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         } else {
-            const { payload }: Payload = await handleCreateBrand(brand);
+            const { payload }: Payload = await createBrand(brand);
 
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         }
-    }
-
-    function handleCreateBrand(brand: Brand) {
-        return createBrand(brand)
-    }
-
-    function handleUpdateBrand(brand: Brand) {
-        return updateBrand(brand)
     }
 
     return (

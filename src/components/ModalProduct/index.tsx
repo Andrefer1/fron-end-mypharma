@@ -86,24 +86,16 @@ const ModalProduct = ({
     async function handleSubmit(product: Product) {
 
         if (updatingProduct) {
-            const { payload }: Payload = await handleUpdateProduct({ ...product, _id: updatingProduct._id });
+            const { payload }: Payload = await updateProduct({ ...product, _id: updatingProduct._id });
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         } else {
-            const { payload }: Payload = await handleCreateProduct(product)
+            const { payload }: Payload = await createProduct(product)
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         }
-    }
-
-    function handleCreateProduct(Product: Product) {
-        return createProduct(Product)
-    }
-
-    function handleUpdateProduct(Product: Product) {
-        return updateProduct(Product)
     }
 
     return (

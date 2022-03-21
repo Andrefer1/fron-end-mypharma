@@ -49,26 +49,18 @@ const ModalCategory = ({
     async function handleSubmit(category: Category) {
 
         if (updatingCategory) {
-            const { payload }: Payload = await handleUpdateCategory({ ...category, _id: updatingCategory._id });
+            const { payload }: Payload = await updateCategory({ ...category, _id: updatingCategory._id });
 
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         } else {
-            const { payload }: Payload = await handleCreateCategory(category);
+            const { payload }: Payload = await createCategory(category);
 
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         }
-    }
-
-    function handleCreateCategory(category: Category) {
-        return createCategory(category)
-    }
-
-    function handleUpdateCategory(category: Category) {
-        return updateCategory(category)
     }
 
     return (
