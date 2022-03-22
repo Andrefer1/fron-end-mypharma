@@ -30,12 +30,13 @@ export const Content = styled.div`
       border-radius: 8px;
       text-decoration: none;
 
-      &:first-child {
-        margin-right: 20px;
+      &:hover {
+        color: white;
+        background: blue;
       }
 
-      &:hover {
-        color: orange;
+      &:first-child {
+        margin-right: 20px;
       }
     }
   }
