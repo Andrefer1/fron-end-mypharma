@@ -7,8 +7,8 @@ import { FiPlusSquare } from "react-icons/fi";
 import * as CategoriesActions from "../../app/store/actions/categoriesActions"
 
 import ModalCategory from "../../components/ModalCategory";
-import { Category as CategoryComponent } from "../../components/Category"
 import Header from "../../components/Header";
+import { Card } from "../../components/Card";
 
 import { Container, Content, CategoryStyles } from "./styles";
 
@@ -97,11 +97,11 @@ const Categories = ({
 
                 <CategoryStyles>
                     {categories.map((category: Category) => (
-                        <CategoryComponent
+                        <Card
                             key={category._id}
                             category={category}
                             toggleModal={toggleModal}
-                            deleteCategory={deleteCategory}
+                            deleteData={deleteCategory}
                         />
                     ))}
                 </CategoryStyles>

@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-
   border-radius: 8px;
   width: 190px;
   max-width: 190px;
@@ -15,14 +11,15 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 10px;
 
-  h3 {
-    border-bottom: solid 1px grey;
+  .content {
+    padding: 10px 0;
+    border-top: solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
   }
 
   .buttons {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
     transition: filter 0.2s;
 
     button {

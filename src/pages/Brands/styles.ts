@@ -80,6 +80,11 @@ export const BrandStyles = styled.div`
   gap: 30px;
 
   & > div {
-    flex: 1 1 190px;
+    flex: 0 1 190px;
+
+    h3 {
+      padding-bottom: 10px;
+      border-bottom: solid 1px #cccccc;
+    }
   }
 `;

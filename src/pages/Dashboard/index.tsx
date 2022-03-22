@@ -7,12 +7,12 @@ import { FiPlusSquare } from "react-icons/fi";
 import * as ProductActions from "../../app/store/actions/productActions"
 
 import ModalProduct from "../../components/ModalProduct";
-import { Product as ProductComponent } from "../../components/Product"
 import Header from "../../components/Header";
+import { Card } from "../../components/Card";
 
 import { Container, Content, ProductStyles } from "./styles";
 
-type Product = {
+type TProduct = {
     _id: string;
     name: string;
     description: string;
@@ -23,7 +23,7 @@ type Product = {
 }
 
 type DashboardProps = {
-    products: Product[]
+    products: TProduct[]
     getProducts: any
     createProduct: any
     updateProduct: any
@@ -41,7 +41,7 @@ const Dashboard = ({
     const [
         updatingProduct,
         setUpdatingProduct
-    ] = useState<Product | undefined>(undefined);
+    ] = useState<TProduct | undefined>(undefined);
     const [session, setSession] = useState<string | void>("")
 
     const navigate = useNavigate();
@@ -60,7 +60,7 @@ const Dashboard = ({
 
     function toggleModal(
         action: string = "",
-        updatingProduct: Product | undefined = undefined
+        updatingProduct: TProduct | undefined = undefined
     ): void {
 
         setAction(action)
@@ -100,14 +100,14 @@ const Dashboard = ({
                 />
 
                 <ProductStyles>
-                    {products.map((product: Product) => (
-
-                        <ProductComponent
-                            key={product._id}
-                            product={product}
-                            toggleModal={toggleModal}
-                            deleteProduct={deleteProduct}
-                        />
+                    {products.map((product: TProduct) => (
+                        <div key={product._id}>
+                            <Card
+                                product={product}
+                                toggleModal={toggleModal}
+                                deleteData={deleteProduct}
+                            />
+                        </div>
                     ))}
                 </ProductStyles>
             </Content>

@@ -7,8 +7,8 @@ import { FiPlusSquare } from "react-icons/fi";
 import * as BrandsActions from "../../app/store/actions/brandsActions"
 
 import ModalBrand from "../../components/ModalBrand";
-import { Brand as BrandComponent } from "../../components/Brand"
 import Header from "../../components/Header";
+import { Card } from "../../components/Card";
 
 import { Container, Content, BrandStyles } from "./styles";
 
@@ -94,12 +94,13 @@ const Brands = ({
 
                 <BrandStyles>
                     {brands.map((brand: Brand) => (
-                        <BrandComponent
+                        <Card
                             key={brand._id}
                             brand={brand}
                             toggleModal={toggleModal}
-                            deleteBrand={deleteBrand}
+                            deleteData={deleteBrand}
                         />
+
                     ))}
                 </BrandStyles>
             </Content>

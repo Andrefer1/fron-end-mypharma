@@ -80,6 +80,6 @@ export const CategoryStyles = styled.div`
   gap: 30px;
 
   & > div {
-    flex: 1 1 190px;
+    flex: 0 1 190px;
   }
 `;
