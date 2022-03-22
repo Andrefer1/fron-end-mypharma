@@ -73,21 +73,23 @@ const Dashboard = ({
             <Header setSessionIsActive={setSession} />
 
             <Content>
-                <h1>Dashboard</h1>
+                <section>
+                    <h1>Dashboard</h1>
 
-                <div className='links'>
-                    <Link to='/categories' className="link"> Categories </Link>
-                    <Link to='/brands' className="link"> Brands </Link>
-                </div>
+                    <div className='links'>
+                        <Link to='/categories' className="link"> Categories </Link>
+                        <Link to='/brands' className="link"> Brands </Link>
+                    </div>
 
-                <div>
-                    <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
-                        <div className="text">Novo Produto</div>
-                        <div className="icon">
-                            <FiPlusSquare size={24} />
-                        </div>
-                    </button>
-                </div>
+                    <div>
+                        <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
+                            <div className="text">Novo Produto</div>
+                            <div className="icon">
+                                <FiPlusSquare size={24} />
+                            </div>
+                        </button>
+                    </div>
+                </section>
 
 
                 <ModalProduct

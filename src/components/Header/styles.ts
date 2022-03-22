@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  max-width: 155px;
+  margin: 0 auto;
+  margin-bottom: 20px;
 `;
 
 export const Content = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+
   p {
     font-size: 1.2rem;
     white-space: nowrap;
