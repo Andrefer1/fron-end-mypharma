@@ -30,12 +30,13 @@ export const Content = styled.div`
       border-radius: 8px;
       text-decoration: none;
 
-      &:first-child {
-        margin-right: 20px;
+      &:hover {
+        color: white;
+        background: blue;
       }
 
-      &:hover {
-        color: orange;
+      &:first-child {
+        margin-right: 20px;
       }
     }
   }
@@ -49,10 +50,15 @@ export const Content = styled.div`
     border: 0;
     background: #39b100;
     color: #fff;
+    transition: filter 0.2s;
 
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
 
     .text {
       padding: 16px 24px;
