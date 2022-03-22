@@ -22,15 +22,18 @@ export const Container = styled.div`
   .buttons {
     display: flex;
     justify-content: space-between;
-    border-top: solid 1px grey;
     padding: 5px 0;
-    flex: 1;
+    transition: filter 0.2s;
 
     button {
       padding: 10px 10px;
       width: 45%;
       border-radius: 8px;
       border: 0;
+
+      &:hover {
+        filter: brightness(0.9);
+      }
 
       &:first-child {
         background: #e9dc43;
