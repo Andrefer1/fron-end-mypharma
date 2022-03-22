@@ -3,6 +3,22 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin: 0 auto;
   padding: 20px 20px;
+`;
+
+export const Content = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+
+  & > div {
+    :not(:first-child) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  section {
+    right: 0;
+  }
 
   .links {
     margin-top: 20px;
@@ -50,13 +66,6 @@ export const Container = styled.div`
       margin: 0 auto;
     }
   }
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const CategoryStyles = styled.div`

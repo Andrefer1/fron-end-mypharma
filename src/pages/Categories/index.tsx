@@ -70,21 +70,23 @@ const Categories = ({
             <Header setSessionIsActive={setSession} />
 
             <Content>
-                <h1>Categories</h1>
+                <section>
+                    <h1>Categories</h1>
 
-                <div className='links'>
-                    <Link to='/' className="link"> Dashboard </Link>
-                    <Link to='/brands' className="link"> Brands </Link>
-                </div>
+                    <div className='links'>
+                        <Link to='/' className="link"> Dashboard </Link>
+                        <Link to='/brands' className="link"> Brands </Link>
+                    </div>
 
-                <div>
-                    <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
-                        <div className="text">Nova Categoria</div>
-                        <div className="icon">
-                            <FiPlusSquare size={24} />
-                        </div>
-                    </button>
-                </div>
+                    <div>
+                        <button className='createButton' type="button" onClick={() => toggleModal("Criar")}>
+                            <div className="text">Nova Categoria</div>
+                            <div className="icon">
+                                <FiPlusSquare size={24} />
+                            </div>
+                        </button>
+                    </div>
+                </section>
 
                 <ModalCategory
                     action={action}
