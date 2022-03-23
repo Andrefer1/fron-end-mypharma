@@ -6,15 +6,11 @@ import App from './App';
 import store from "./app/store";
 import * as serviceWorker from './serviceWorker'
 
-import { Container } from './styles/styles';
-
 ReactDOM.render(
   <React.StrictMode>
-    <Container>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Container>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
