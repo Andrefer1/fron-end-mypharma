@@ -48,8 +48,8 @@ export const Content = styled.div`
     font-weight: 600;
     border-radius: 8px;
     border: 0;
-    background: #39b100;
-    color: #fff;
+    background: var(--green-600);
+    color: var(--white);
     transition: filter 0.2s;
 
     display: flex;
@@ -67,7 +67,7 @@ export const Content = styled.div`
     .icon {
       display: flex;
       padding: 16px 16px;
-      background: #41c900;
+      background: var(--green-400);
       border-radius: 0 8px 8px 0;
       margin: 0 auto;
     }
@@ -84,7 +84,7 @@ export const BrandStyles = styled.div`
 
     h3 {
       padding-bottom: 10px;
-      border-bottom: solid 1px #cccccc;
+      border-bottom: solid 1px var(--grey-300);
     }
   }
 `;

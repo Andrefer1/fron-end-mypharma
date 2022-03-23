@@ -18,7 +18,7 @@ export const InputStyles = styled.div<InputProps>`
   display: flex;
   align-items: center;
 
-  background: #fff;
+  background: var(--white);
   border-radius: 8px;
   padding: 5px 20px;
   width: 100%;
@@ -38,14 +38,14 @@ export const InputStyles = styled.div<InputProps>`
   ${(props) =>
     props.isFocused &&
     css`
-      color: #ff9000;
-      border-color: #ff9000;
+      color: var(--orange-500);
+      border-color: var(--orange-500);
     `}
 
   ${(props) =>
     props.isFilled &&
     css`
-      color: #ff9000;
+      color: var(--orange-500);
     `}
 
   input {
@@ -54,10 +54,10 @@ export const InputStyles = styled.div<InputProps>`
     border: 0;
     height: 40px;
     margin-left: 10px;
-    color: #b7b7cc;
+    color: var(--purple-100);
 
     &::placeholder {
-      color: #b7b7cc;
+      color: var(--purple-100);
     }
 
     &[type="number"] {

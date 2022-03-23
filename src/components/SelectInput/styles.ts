@@ -9,7 +9,7 @@ export const Container = styled.div<InputProps>`
   display: flex;
   align-items: center;
   padding: 5px 24px;
-  background: #fff;
+  background: var(--white);
   border-radius: 8px;
 
   & + div {
@@ -21,7 +21,7 @@ export const Container = styled.div<InputProps>`
     font-size: 0.8rem;
     border: 0;
     height: 40px;
-    color: #b7b7cc;
+    color: var(--purple-100);
   }
 
   svg {

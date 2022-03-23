@@ -25,7 +25,7 @@ export const Content = styled.div`
     color: white;
     border: none;
     border-radius: 8px;
-    background: #ff1493;
+    background: var(--pink-500);
     padding: 20px 25px;
     transition: filter 0.2s;
 

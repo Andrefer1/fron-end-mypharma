@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  background: #f0f0f5;
+  background: var(--grey-50);
   border-radius: 10px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
   padding: 20px 20px;
@@ -42,7 +42,7 @@ export const Form = styled(Unform)`
     border: 0;
     color: white;
     border-radius: 8px;
-    background: #ff1493;
+    background: #var(--pink-500);
     transition: filter 0.2s;
 
     &:hover {

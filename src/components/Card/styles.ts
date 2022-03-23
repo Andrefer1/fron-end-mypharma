@@ -13,8 +13,8 @@ export const Container = styled.div`
 
   .content {
     padding: 10px 0;
-    border-top: solid 1px #cccccc;
-    border-bottom: solid 1px #cccccc;
+    border-top: solid 1px var(--grey-300);
+    border-bottom: solid 1px var(--grey-300);
 
     h5:not(:first-child) {
       margin-top: 5px;
@@ -37,10 +37,10 @@ export const Container = styled.div`
       }
 
       &:first-child {
-        background: #e9dc43;
+        background: var(--yellow-500);
       }
       &:last-child {
-        background: #ff0000;
+        background: var(--red-500);
         color: white;
       }
     }

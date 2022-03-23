@@ -30,15 +30,15 @@ export default function Modal({ isOpen, setIsOpen, children }: ModalProps) {
                     bottom: "auto",
                     marginRight: "-50%",
                     transform: "translate(-50%, -50%)",
-                    background: "#F0F0F5",
-                    color: "#000000",
+                    background: "var(--grey-50)",
+                    color: "var(--black)",
                     borderRadius: "8px",
                     maxWidth: "736px",
                     width: "80%",
                     border: "none",
                 },
                 overlay: {
-                    backgroundColor: "#121214e6",
+                    backgroundColor: "var(--grey-950)",
                 },
             }}
         >

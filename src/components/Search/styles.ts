@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  border: solid 1px #cccccc;
+  border: solid 1px var(--grey-300);
   border-radius: 20px;
   padding: 5px 15px;
 
@@ -18,7 +18,7 @@ export const Content = styled.div`
     width: 100%;
     height: 30px;
     border: 0;
-    color: #cccccc;
+    color: var(--grey-300);
 
     &::placeholder {
       color: var(--cc);
@@ -26,6 +26,6 @@ export const Content = styled.div`
   }
 
   svg {
-    color: #cccccc;
+    color: var(--grey-300);
   }
 `;
