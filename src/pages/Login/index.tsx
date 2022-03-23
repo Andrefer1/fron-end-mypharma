@@ -22,7 +22,7 @@ interface RegisterProps {
     getUser?: any;
 }
 
-const Register = ({ getUser }: RegisterProps) => {
+const Login = ({ getUser }: RegisterProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
     const [errorMessagePassword, setErrorMessagePassword] = useState<string | undefined>(undefined)
     const navigate = useNavigate();
@@ -39,15 +39,17 @@ const Register = ({ getUser }: RegisterProps) => {
 
         const { payload } = await getUser(user)
 
-        if (payload.statusCode === 401) {
+        if (payload?.statusCode === 401) {
             return setErrorMessagePassword(payload.message)
 
-        } else if (payload.statusCode === 404) {
+        } else if (payload?.statusCode === 404) {
             return setErrorMessage(payload.message)
 
         }
 
-        saveSession(payload.user)
+        console.log('Payload', payload)
+
+        saveSession(payload)
 
         navigate("/")
     }
@@ -88,4 +90,4 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) =>
     bindActionCreators(UserActions, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

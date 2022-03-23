@@ -42,7 +42,7 @@ const Dashboard = ({
         updatingProduct,
         setUpdatingProduct
     ] = useState<TProduct | undefined>(undefined);
-    const [session, setSession] = useState<string | void>("")
+    const [session, setSession] = useState<string | undefined>("")
 
     const navigate = useNavigate();
 
@@ -50,6 +50,7 @@ const Dashboard = ({
         const isActive = localStorage.getItem("@mypharma/email")
 
         if (!session && !isActive) {
+            setSession("")
             return navigate("/auth/login")
         }
     }, [session, navigate])

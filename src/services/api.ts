@@ -1,5 +1,7 @@
 import { create } from "apisauce";
 
 export const api = create({
-  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: "http://localhost:3333",
+  baseURL: "https://back-end-mypharma.herokuapp.com",
+  // baseURL: process.env.API_URL,
 });
