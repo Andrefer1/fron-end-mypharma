@@ -12,14 +12,14 @@ import { Card } from "../../components/Card";
 
 import { Container, Content, CategoryStyles } from "./styles";
 
-type Category = {
+type TCategory = {
     _id: string;
     name: string;
     description: string;
 };
 
 type CategoriesProps = {
-    categories: Category[]
+    categories: TCategory[]
     getCategories: any
     createCategory: any
     updateCategory: any
@@ -32,12 +32,13 @@ const Categories = ({
     deleteCategory
 }: CategoriesProps) => {
 
+    const [allCategories, setAllCategories] = useState<TCategory[]>([]);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [action, setAction] = useState<string>("");
     const [
         updatingCategory,
         setUpdatingCategory
-    ] = useState<Category | undefined>(undefined);
+    ] = useState<TCategory | undefined>(undefined);
     const [session, setSession] = useState<string | void>("")
 
     const navigate = useNavigate();
@@ -57,7 +58,7 @@ const Categories = ({
 
     function toggleModal(
         action: string = "",
-        updatingCategory: Category | undefined = undefined
+        updatingCategory: TCategory | undefined = undefined
     ): void {
 
         setAction(action)
@@ -67,7 +68,12 @@ const Categories = ({
 
     return (
         <Container>
-            <Header setSessionIsActive={setSession} />
+            <Header
+                data={categories}
+                typeOfData='categorias'
+                setData={setAllCategories}
+                setSessionIsActive={setSession}
+            />
 
             <Content>
                 <section>
@@ -96,8 +102,8 @@ const Categories = ({
                 />
 
                 <CategoryStyles>
-                    {categories
-                        ? categories.map((category: Category) => (
+                    {!allCategories
+                        ? categories.map((category: TCategory) => (
                             <Card
                                 key={category._id}
                                 category={category}
@@ -105,9 +111,19 @@ const Categories = ({
                                 deleteData={deleteCategory}
                             />
                         ))
-                        : (
-                            <p>Não há categorias cadastradas!</p>
-                        )
+                        : allCategories
+                            ? allCategories.map((category: TCategory) => (
+                                <div key={category._id}>
+                                    <Card
+                                        category={category}
+                                        toggleModal={toggleModal}
+                                        deleteData={deleteCategory}
+                                    />
+                                </div>
+                            ))
+                            : (
+                                <p>Não há categorias cadastradas!</p>
+                            )
                     }
                 </CategoryStyles>
             </Content>

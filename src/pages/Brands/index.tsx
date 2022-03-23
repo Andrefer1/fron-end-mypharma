@@ -12,13 +12,13 @@ import { Card } from "../../components/Card";
 
 import { Container, Content, BrandStyles } from "./styles";
 
-type Brand = {
+type TBrand = {
     _id: string;
     name: string;
 };
 
 type BrandsProps = {
-    brands: Brand[]
+    brands: TBrand[]
     getBrands: any
     deleteBrand: any
 }
@@ -29,12 +29,13 @@ const Brands = ({
     deleteBrand
 }: BrandsProps) => {
 
+    const [allBrands, setAllBrands] = useState<TBrand[]>([]);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [action, setAction] = useState<string>("");
     const [
         updatingBrand,
         setUpdatingBrand
-    ] = useState<Brand | undefined>(undefined);
+    ] = useState<TBrand | undefined>(undefined);
     const [session, setSession] = useState<string | void>("")
 
     const navigate = useNavigate();
@@ -54,7 +55,7 @@ const Brands = ({
 
     function toggleModal(
         action: string = "",
-        updatingBrand: Brand | undefined = undefined
+        updatingBrand: TBrand | undefined = undefined
     ): void {
 
         setAction(action)
@@ -64,7 +65,12 @@ const Brands = ({
 
     return (
         <Container>
-            <Header setSessionIsActive={setSession} />
+            <Header
+                data={brands}
+                typeOfData='marcas'
+                setData={setAllBrands}
+                setSessionIsActive={setSession}
+            />
 
             <Content>
                 <section>
@@ -93,19 +99,28 @@ const Brands = ({
                 />
 
                 <BrandStyles>
-                    {brands
-                        ? brands.map((brand: Brand) => (
+                    {!allBrands
+                        ? brands.map((brand: TBrand) => (
                             <Card
                                 key={brand._id}
                                 brand={brand}
                                 toggleModal={toggleModal}
                                 deleteData={deleteBrand}
                             />
-
                         ))
-                        : (
-                            <p>Não há marcas cadastradas!</p>
-                        )
+                        : allBrands
+                            ? allBrands.map((brand: TBrand) => (
+                                <div key={brand._id}>
+                                    <Card
+                                        brand={brand}
+                                        toggleModal={toggleModal}
+                                        deleteData={deleteBrand}
+                                    />
+                                </div>
+                            ))
+                            : (
+                                <p>Não há marcas cadastradas!</p>
+                            )
                     }
                 </BrandStyles>
             </Content>

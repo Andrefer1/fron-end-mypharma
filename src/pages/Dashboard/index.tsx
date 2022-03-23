@@ -36,6 +36,7 @@ const Dashboard = ({
     deleteProduct
 }: DashboardProps) => {
 
+    const [allProducts, setAllProducts] = useState<TProduct[]>([]);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [action, setAction] = useState<string>("");
     const [
@@ -71,7 +72,12 @@ const Dashboard = ({
 
     return (
         <Container>
-            <Header setSessionIsActive={setSession} />
+            <Header
+                data={products}
+                typeOfData='produtos'
+                setData={setAllProducts}
+                setSessionIsActive={setSession}
+            />
 
             <Content>
                 <section>
@@ -101,7 +107,7 @@ const Dashboard = ({
                 />
 
                 <ProductStyles>
-                    {products
+                    {!allProducts
                         ? products.map((product: TProduct) => (
                             <div key={product._id}>
                                 <Card
@@ -111,9 +117,19 @@ const Dashboard = ({
                                 />
                             </div>
                         ))
-                        : (
-                            <p>Não há produtos cadastrados!</p>
-                        )
+                        : allProducts
+                            ? allProducts.map((product: TProduct) => (
+                                <div key={product._id}>
+                                    <Card
+                                        product={product}
+                                        toggleModal={toggleModal}
+                                        deleteData={deleteProduct}
+                                    />
+                                </div>
+                            ))
+                            : (
+                                <p>Não há produtos cadastrados!</p>
+                            )
                     }
                 </ProductStyles>
             </Content>

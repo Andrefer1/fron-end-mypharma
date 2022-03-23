@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 
+import Search from "../Search";
+
 import { Container, Content } from "./styles";
 
-type User = {
+type Data = {
     _id: string;
     name: string;
-    email: string;
-};
+    description?: string;
+    price?: number;
+    stock?: number;
+    brand?: string
+    category?: string
+}
 
 interface RegisterProps {
-    user?: User;
-    getUser?: any
+    data?: Data[];
+    typeOfData?: string;
+    setData?: (value: any) => void
     setSessionIsActive: (value: undefined) => void
 }
 
-const Header = ({ setSessionIsActive }: RegisterProps) => {
+const Header = ({ data, typeOfData, setData, setSessionIsActive }: RegisterProps) => {
     const [username, setUsername] = useState<string | null>('')
 
     useEffect(() => {
@@ -32,14 +39,20 @@ const Header = ({ setSessionIsActive }: RegisterProps) => {
         <Container>
             <Content>
 
-                <p>Bem-vindo {username}!</p>
+                <div>
+                    <p>Bem-vindo {username}!</p>
 
-                <button onClick={handleLogout}>Logout
-                    <FiLogOut size={20} />
-                </button>
+                    <button onClick={handleLogout}>Logout
+                        <FiLogOut size={20} />
+                    </button>
+                </div>
+
+                <Search typeOfData={typeOfData} datas={data} setData={setData} />
+
             </Content>
         </Container >
     )
 }
 
 export default Header
+

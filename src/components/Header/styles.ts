@@ -9,6 +9,11 @@ export const Content = styled.div`
   max-width: 1200px;
   margin: 0 auto;
 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
   p {
     font-size: 1.2rem;
     white-space: nowrap;
