@@ -77,7 +77,7 @@ export const Content = styled.div`
 export const CategoryStyles = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 10px;
 
   & > div {
     flex: 0 1 190px;
