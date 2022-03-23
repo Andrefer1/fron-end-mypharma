@@ -80,7 +80,7 @@ const Categories = ({
                     <h1>Categories</h1>
 
                     <div className='links'>
-                        <Link to='/' className="link"> Dashboard </Link>
+                        <Link to='/' className="link"> Produtos </Link>
                         <Link to='/brands' className="link"> Brands </Link>
                     </div>
 

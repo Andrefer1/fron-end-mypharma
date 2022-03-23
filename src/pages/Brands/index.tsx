@@ -77,7 +77,7 @@ const Brands = ({
                     <h1>Brands</h1>
 
                     <div className='links'>
-                        <Link to='/' className="link"> Dashboard </Link>
+                        <Link to='/' className="link"> Produtos </Link>
                         <Link to='/categories' className="link"> Categories </Link>
                     </div>
 
