@@ -15,6 +15,10 @@ export const Container = styled.div`
     padding: 10px 0;
     border-top: solid 1px #cccccc;
     border-bottom: solid 1px #cccccc;
+
+    h5:not(:first-child) {
+      margin-top: 5px;
+    }
   }
 
   .buttons {

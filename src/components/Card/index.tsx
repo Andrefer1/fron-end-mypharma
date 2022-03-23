@@ -40,6 +40,16 @@ export function Card({
     deleteData
 }: CardProps) {
 
+    function maskMoney(value: number): string {
+        return value.toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+        )
+    }
+
     const Buttons = ({ data }: any) => (
         <div className='buttons'>
             <button
@@ -71,6 +81,7 @@ export function Card({
                 <h3>{category.name}</h3>
 
                 <div className='content'>
+                    <h5>Descrição</h5>
                     <p>{category.description}</p>
                 </div>
 
@@ -85,11 +96,20 @@ export function Card({
                 <h3>{product.name}</h3>
 
                 <div className='content'>
+                    <h5>Descrição</h5>
                     <p>{product.description}</p>
 
-                    <div>{product.price}</div>
+
+                    <h5>Preço</h5>
+                    <div>{maskMoney(product.price)}</div>
+
+                    <h5>Estoque</h5>
                     <div>{product.stock}</div>
+
+                    <h5>Categoria</h5>
                     <div>{product.category}</div>
+
+                    <h5>Marca</h5>
                     <div>{product.brand}</div>
                 </div>
 

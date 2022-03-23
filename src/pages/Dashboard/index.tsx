@@ -81,7 +81,7 @@ const Dashboard = ({
 
             <Content>
                 <section>
-                    <h1>Dashboard</h1>
+                    <h1>Produtos</h1>
 
                     <div className='links'>
                         <Link to='/categories' className="link"> Categories </Link>
