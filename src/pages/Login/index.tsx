@@ -47,8 +47,6 @@ const Login = ({ getUser }: RegisterProps) => {
 
         }
 
-        console.log('Payload', payload)
-
         saveSession(payload)
 
         navigate("/")

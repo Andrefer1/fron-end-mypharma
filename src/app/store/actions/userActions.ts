@@ -11,10 +11,7 @@ type User = {
 
 export const getUser = (user: User) => async (dispatch: any) => {
   try {
-    console.log(user);
     const response = await api.post("/auth/login", user);
-
-    console.log(response);
 
     return dispatch({
       type: GET_USER,

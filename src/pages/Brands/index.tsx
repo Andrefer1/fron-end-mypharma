@@ -93,15 +93,20 @@ const Brands = ({
                 />
 
                 <BrandStyles>
-                    {brands.map((brand: Brand) => (
-                        <Card
-                            key={brand._id}
-                            brand={brand}
-                            toggleModal={toggleModal}
-                            deleteData={deleteBrand}
-                        />
+                    {brands
+                        ? brands.map((brand: Brand) => (
+                            <Card
+                                key={brand._id}
+                                brand={brand}
+                                toggleModal={toggleModal}
+                                deleteData={deleteBrand}
+                            />
 
-                    ))}
+                        ))
+                        : (
+                            <p>Não há marcas cadastradas!</p>
+                        )
+                    }
                 </BrandStyles>
             </Content>
         </Container>

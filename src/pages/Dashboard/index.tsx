@@ -101,15 +101,20 @@ const Dashboard = ({
                 />
 
                 <ProductStyles>
-                    {products.map((product: TProduct) => (
-                        <div key={product._id}>
-                            <Card
-                                product={product}
-                                toggleModal={toggleModal}
-                                deleteData={deleteProduct}
-                            />
-                        </div>
-                    ))}
+                    {products
+                        ? products.map((product: TProduct) => (
+                            <div key={product._id}>
+                                <Card
+                                    product={product}
+                                    toggleModal={toggleModal}
+                                    deleteData={deleteProduct}
+                                />
+                            </div>
+                        ))
+                        : (
+                            <p>Não há produtos cadastrados!</p>
+                        )
+                    }
                 </ProductStyles>
             </Content>
         </Container>

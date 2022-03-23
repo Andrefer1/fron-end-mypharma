@@ -96,14 +96,19 @@ const Categories = ({
                 />
 
                 <CategoryStyles>
-                    {categories.map((category: Category) => (
-                        <Card
-                            key={category._id}
-                            category={category}
-                            toggleModal={toggleModal}
-                            deleteData={deleteCategory}
-                        />
-                    ))}
+                    {categories
+                        ? categories.map((category: Category) => (
+                            <Card
+                                key={category._id}
+                                category={category}
+                                toggleModal={toggleModal}
+                                deleteData={deleteCategory}
+                            />
+                        ))
+                        : (
+                            <p>Não há categorias cadastradas!</p>
+                        )
+                    }
                 </CategoryStyles>
             </Content>
         </Container>
