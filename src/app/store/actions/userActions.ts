@@ -1,15 +1,9 @@
+import { Dispatch } from "redux";
+
 import { api } from "../../../services/api";
-import { GET_USER, CREATE_USER, USER_ERROR } from "../types";
+import { User, GET_USER, CREATE_USER, USER_ERROR } from "../types";
 
-type User = {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword?: string;
-};
-
-export const getUser = (user: User) => async (dispatch: any) => {
+export const getUser = (user: User) => async (dispatch: Dispatch) => {
   try {
     const response = await api.post("/auth/login", user);
 
@@ -25,7 +19,7 @@ export const getUser = (user: User) => async (dispatch: any) => {
   }
 };
 
-export const createUser = (user: User) => async (dispatch: any) => {
+export const createUser = (user: User) => async (dispatch: Dispatch) => {
   try {
     const response = await api.post("/auth/register", user);
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { bindActionCreators } from 'redux'
+import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import {
     FiCheckSquare,
@@ -8,27 +8,16 @@ import {
 } from "react-icons/fi";
 
 import * as CategoryActions from "../../app/store/actions/categoriesActions"
+import { Category } from "../../app/store/types";
+
 import Modal from "../Modal";
 import Input from "../Input";
 
 import { Form } from "./styles";
 
-interface Category {
-    _id: string;
-    name: string;
-    description: string;
-}
-
-type Payload = {
-    payload: {
-        message: string;
-        statusCode: number
-    }
-}
-
 interface ModalCategoryProps {
-    createCategory?: any
-    updateCategory?: any
+    createCategory: (category: Category) => any;
+    updateCategory: (category: Category) => any;
     action: string
     updatingCategory: Category | undefined
     isOpen: boolean;
@@ -49,13 +38,16 @@ const ModalCategory = ({
     async function handleSubmit(category: Category) {
 
         if (updatingCategory) {
-            const { payload }: Payload = await updateCategory({ ...category, _id: updatingCategory._id });
+            const { payload } = await updateCategory({
+                ...category,
+                _id: updatingCategory._id
+            });
 
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         } else {
-            const { payload }: Payload = await createCategory(category);
+            const { payload } = await createCategory(category);
 
             setErrorMessage(payload?.message)
 
@@ -91,7 +83,7 @@ const ModalCategory = ({
     );
 }
 
-const mapDispatchToProps = (dispatch: any) =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(CategoryActions, dispatch)
 
 export default connect(null, mapDispatchToProps)(ModalCategory)

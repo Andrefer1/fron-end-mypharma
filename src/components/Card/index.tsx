@@ -1,36 +1,21 @@
 import { Container } from "./styles";
+import { Brand, Category, Product } from "../../app/store/types";
 
-type TBrand = {
-    _id: string;
-    name: string;
-}
-
-type TCategory = {
-    _id: string;
-    name: string;
-    description: string;
-}
-
-type TProduct = {
-    _id: string;
-    name: string;
-    description: string;
-    price: number;
-    stock: number;
-    brand: string
-    category: string
-}
-
-interface CardProps {
-    brand?: TBrand;
-    category?: TCategory;
-    product?: TProduct;
+interface OwnProps {
+    brand?: Brand;
+    category?: Category;
+    product?: Product;
     toggleModal: (
         action: string,
-        data: any//TBrand | TCategory | TProduct
+        data: any
     ) => void
+}
+
+interface DispatchProps {
     deleteData: (_id: string) => void
 }
+
+type CardProps = OwnProps & DispatchProps
 
 export function Card({
     brand,

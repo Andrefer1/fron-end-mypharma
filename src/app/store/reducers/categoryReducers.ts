@@ -1,22 +1,13 @@
 import {
+  Category,
+  CategoriesState,
   GET_CATEGORIES,
   CREATE_CATEGORY,
   UPDATE_CATEGORY,
   DELETE_CATEGORY,
 } from "../types";
 
-type Category = {
-  _id: string;
-  name: string;
-  description: string;
-};
-
-type InitialStateProps = {
-  categories: Category[];
-  loading: boolean;
-};
-
-const INITIAL_STATE: InitialStateProps = {
+const INITIAL_STATE: CategoriesState = {
   categories: [],
   loading: true,
 };

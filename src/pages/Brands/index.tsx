@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { bindActionCreators } from "redux"
+import { bindActionCreators, Dispatch } from "redux"
 import { connect } from "react-redux"
 import { FiPlusSquare } from "react-icons/fi";
 
 import * as BrandsActions from "../../app/store/actions/brandsActions"
+import { Brand } from "../../app/store/types";
+import { ApplicationState } from "../../app/store";
 
 import ModalBrand from "../../components/ModalBrand";
 import Header from "../../components/Header";
@@ -12,16 +14,16 @@ import { Card } from "../../components/Card";
 
 import { Container, Content, BrandStyles } from "./styles";
 
-type TBrand = {
-    _id: string;
-    name: string;
-};
-
-type BrandsProps = {
-    brands: TBrand[]
-    getBrands: any
-    deleteBrand: any
+interface StateProps {
+    brands: Brand[]
 }
+
+interface DispatchProps {
+    getBrands: () => void
+    deleteBrand: (id: string) => void
+}
+
+type BrandsProps = StateProps & DispatchProps
 
 const Brands = ({
     brands,
@@ -29,13 +31,13 @@ const Brands = ({
     deleteBrand
 }: BrandsProps) => {
 
-    const [allBrands, setAllBrands] = useState<TBrand[]>([]);
+    const [filteredBrands, setFilteredBrands] = useState<Brand[]>([]);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [action, setAction] = useState<string>("");
     const [
         updatingBrand,
         setUpdatingBrand
-    ] = useState<TBrand | undefined>(undefined);
+    ] = useState<Brand | undefined>(undefined);
     const [session, setSession] = useState<string | void>("")
 
     const navigate = useNavigate();
@@ -55,7 +57,7 @@ const Brands = ({
 
     function toggleModal(
         action: string = "",
-        updatingBrand: TBrand | undefined = undefined
+        updatingBrand: Brand | undefined = undefined
     ): void {
 
         setAction(action)
@@ -68,7 +70,7 @@ const Brands = ({
             <Header
                 data={brands}
                 typeOfData='marcas'
-                setData={setAllBrands}
+                setData={setFilteredBrands}
                 setSessionIsActive={setSession}
             />
 
@@ -99,28 +101,29 @@ const Brands = ({
                 />
 
                 <BrandStyles>
-                    {!allBrands
-                        ? brands.map((brand: TBrand) => (
-                            <Card
-                                key={brand._id}
-                                brand={brand}
-                                toggleModal={toggleModal}
-                                deleteData={deleteBrand}
-                            />
-                        ))
-                        : allBrands
-                            ? allBrands.map((brand: TBrand) => (
-                                <div key={brand._id}>
-                                    <Card
-                                        brand={brand}
-                                        toggleModal={toggleModal}
-                                        deleteData={deleteBrand}
-                                    />
-                                </div>
+                    {!filteredBrands
+                        ? brands
+                            ? brands.map((brand: Brand) => (
+                                <Card
+                                    key={brand._id}
+                                    brand={brand}
+                                    toggleModal={toggleModal}
+                                    deleteData={deleteBrand}
+                                />
                             ))
                             : (
                                 <p>Não há marcas cadastradas!</p>
                             )
+                        : filteredBrands
+                        && filteredBrands.map((brand: Brand) => (
+                            <div key={brand._id}>
+                                <Card
+                                    brand={brand}
+                                    toggleModal={toggleModal}
+                                    deleteData={deleteBrand}
+                                />
+                            </div>
+                        ))
                     }
                 </BrandStyles>
             </Content>
@@ -128,11 +131,11 @@ const Brands = ({
     )
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: ApplicationState) => ({
     brands: state.brands.brands
 })
 
-const mapDispatchToProps = (dispatch: any) =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(BrandsActions, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Brands)

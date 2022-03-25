@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ApiResponse } from "apisauce";
-import { bindActionCreators } from 'redux'
+import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import {
     FiCheckSquare,
@@ -13,6 +13,9 @@ import {
 } from "react-icons/fi";
 
 import * as ProductActions from "../../app/store/actions/productActions"
+import { Brand, Category, Product } from "../../app/store/types";
+import { ApplicationState } from "../../app/store";
+
 import Modal from "../Modal";
 import Input from "../Input";
 import SelectInput from "../SelectInput";
@@ -20,38 +23,10 @@ import { api } from "../../services/api";
 
 import { Form } from "./styles";
 
-type Brand = {
-    _id: string;
-    name: string;
-};
-
-type Category = {
-    _id: string;
-    name: string;
-    description: string;
-};
-
-type Payload = {
-    payload: {
-        message: string;
-        statusCode: number
-    }
-}
-
-interface Product {
-    _id: string;
-    name: string;
-    description: string;
-    price: number;
-    stock: number;
-    brand: string
-    category: string
-}
-
 interface ModalProductProps {
-    createProduct?: any;
-    updateProduct?: any
-    action: string
+    createProduct: (product: Product) => any;
+    updateProduct: (product: Product) => any;
+    createOrUpdate: string
     updatingProduct: Product | undefined
     isOpen: boolean;
     setIsOpen: () => void;
@@ -60,7 +35,7 @@ interface ModalProductProps {
 const ModalProduct = ({
     createProduct,
     updateProduct,
-    action,
+    createOrUpdate,
     isOpen,
     updatingProduct = undefined,
     setIsOpen,
@@ -86,12 +61,16 @@ const ModalProduct = ({
     async function handleSubmit(product: Product) {
 
         if (updatingProduct) {
-            const { payload }: Payload = await updateProduct({ ...product, _id: updatingProduct._id });
+            const { payload } = await updateProduct({
+                ...product,
+                _id: updatingProduct._id
+            });
+
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         } else {
-            const { payload }: Payload = await createProduct(product)
+            const { payload } = await createProduct(product)
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
@@ -101,7 +80,7 @@ const ModalProduct = ({
     return (
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
             <Form onSubmit={handleSubmit} initialData={updatingProduct}>
-                <h1>{`${action}`} Produto</h1>
+                <h1>{`${createOrUpdate}`} Produto</h1>
 
                 <Input
                     name="name"
@@ -144,9 +123,9 @@ const ModalProduct = ({
 
                 <button
                     type="submit"
-                    data-testid={`${action}-product-button`}
+                    data-testid={`${createOrUpdate}-product-button`}
                 >
-                    <p className="text">{`${action}`}</p>
+                    <p className="text">{`${createOrUpdate}`}</p>
                     <div className="icon">
                         <FiCheckSquare size={24} />
                     </div>
@@ -156,11 +135,11 @@ const ModalProduct = ({
     );
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: ApplicationState) => ({
     products: state.products.products
 })
 
-const mapDispatchToProps = (dispatch: any) =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(ProductActions, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalProduct)

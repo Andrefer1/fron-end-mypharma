@@ -1,28 +1,24 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { bindActionCreators } from "redux"
+import { bindActionCreators, Dispatch } from "redux"
 import { connect } from "react-redux"
 import { FiMail, FiLock } from "react-icons/fi";
 
 import * as UserActions from "../../app/store/actions/userActions"
+import { User } from "../../app/store/types";
+import { ApplicationState } from "../../app/store";
 
 import Input from "../../components/Input";
 
 import { Container, Content, Form } from "./styles";
 
-type User = {
-    _id: string;
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword?: string;
-};
-
-interface RegisterProps {
-    getUser?: any;
+interface DispatchProps {
+    getUser: (user: User) => any
 }
 
-const Login = ({ getUser }: RegisterProps) => {
+type UserProps = & DispatchProps
+
+const Login = ({ getUser }: UserProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
     const [errorMessagePassword, setErrorMessagePassword] = useState<string | undefined>(undefined)
     const navigate = useNavigate();
@@ -44,7 +40,6 @@ const Login = ({ getUser }: RegisterProps) => {
 
         } else if (payload?.statusCode === 404) {
             return setErrorMessage(payload.message)
-
         }
 
         saveSession(payload)
@@ -81,11 +76,11 @@ const Login = ({ getUser }: RegisterProps) => {
     )
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: ApplicationState) => ({
     users: state.user.user
 })
 
-const mapDispatchToProps = (dispatch: any) =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(UserActions, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

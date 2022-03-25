@@ -42,7 +42,7 @@ export const Form = styled(Unform)`
     border: 0;
     color: white;
     border-radius: 8px;
-    background: #var(--pink-500);
+    background: var(--pink-500);
     transition: filter 0.2s;
 
     &:hover {

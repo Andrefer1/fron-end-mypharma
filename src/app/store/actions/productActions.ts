@@ -1,7 +1,8 @@
-import { ApiResponse } from "apisauce";
+import { Dispatch } from "redux";
 
 import { api } from "../../../services/api";
 import {
+  Product,
   GET_PRODUCTS,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
@@ -9,31 +10,13 @@ import {
   PRODUCTS_ERROR,
 } from "../types";
 
-type Product = {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  brand: string;
-  category: string;
-};
-
-export const getProducts = () => async (dispatch: any) => {
+export const getProducts = () => async (dispatch: Dispatch) => {
   try {
-    const products = await api
-      .get("/products")
-      .then((response: ApiResponse<any>) => {
-        const { ok, data } = response;
-
-        if (ok) {
-          return data;
-        }
-      });
+    const { data } = await api.get("/products");
 
     return dispatch({
       type: GET_PRODUCTS,
-      payload: products,
+      payload: data,
     });
   } catch (e) {
     return dispatch({
@@ -43,39 +26,41 @@ export const getProducts = () => async (dispatch: any) => {
   }
 };
 
-export const createProduct = (product: Product) => async (dispatch: any) => {
-  try {
-    const response = await api.post("/products", product);
+export const createProduct =
+  (product: Product) => async (dispatch: Dispatch) => {
+    try {
+      const response = await api.post("/products", product);
 
-    return dispatch({
-      type: CREATE_PRODUCT,
-      payload: response.data,
-    });
-  } catch (e) {
-    return dispatch({
-      type: PRODUCTS_ERROR,
-      payload: console.log(e),
-    });
-  }
-};
+      return dispatch({
+        type: CREATE_PRODUCT,
+        payload: response.data,
+      });
+    } catch (e) {
+      return dispatch({
+        type: PRODUCTS_ERROR,
+        payload: console.log(e),
+      });
+    }
+  };
 
-export const updateProduct = (product: Product) => async (dispatch: any) => {
-  try {
-    const response = await api.put(`/products/${product._id}`, product);
+export const updateProduct =
+  (product: Product) => async (dispatch: Dispatch) => {
+    try {
+      const response = await api.put(`/products/${product._id}`, product);
 
-    return dispatch({
-      type: UPDATE_PRODUCT,
-      payload: response.data === null ? product : response.data,
-    });
-  } catch (e) {
-    return dispatch({
-      type: PRODUCTS_ERROR,
-      payload: console.log(e),
-    });
-  }
-};
+      return dispatch({
+        type: UPDATE_PRODUCT,
+        payload: response.data === null ? product : response.data,
+      });
+    } catch (e) {
+      return dispatch({
+        type: PRODUCTS_ERROR,
+        payload: console.log(e),
+      });
+    }
+  };
 
-export const deleteProduct = (id: string) => async (dispatch: any) => {
+export const deleteProduct = (id: string) => async (dispatch: Dispatch) => {
   try {
     await api.delete(`/products/${id}`);
 

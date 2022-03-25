@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import {
     FiCheckSquare,
@@ -7,26 +7,16 @@ import {
 } from "react-icons/fi";
 
 import * as BrandActions from "../../app/store/actions/brandsActions"
+import { Brand } from "../../app/store/types";
+
 import Modal from "../Modal";
 import Input from "../Input";
 
 import { Form } from "./styles";
 
-interface Brand {
-    _id: string;
-    name: string;
-}
-
-type Payload = {
-    payload: {
-        message: string;
-        statusCode: number
-    }
-}
-
 interface ModalBrandProps {
-    createBrand?: any
-    updateBrand?: any
+    createBrand: (brand: Brand) => any
+    updateBrand: (brand: Brand) => any
     action: string
     updatingBrand: Brand | undefined
     isOpen: boolean;
@@ -47,12 +37,12 @@ const ModalBrand = ({
     async function handleSubmit(brand: Brand) {
 
         if (updatingBrand) {
-            const { payload }: Payload = await updateBrand({ ...brand, _id: updatingBrand._id });
+            const { payload } = await updateBrand({ ...brand, _id: updatingBrand._id });
             setErrorMessage(payload?.message)
 
             payload?.message === undefined && setIsOpen()
         } else {
-            const { payload }: Payload = await createBrand(brand);
+            const { payload } = await createBrand(brand);
 
             setErrorMessage(payload?.message)
 
@@ -83,7 +73,7 @@ const ModalBrand = ({
     );
 }
 
-const mapDispatchToProps = (dispatch: any) =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(BrandActions, dispatch)
 
 export default connect(null, mapDispatchToProps)(ModalBrand)

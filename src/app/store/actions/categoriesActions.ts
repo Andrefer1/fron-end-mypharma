@@ -1,7 +1,8 @@
-import { ApiResponse } from "apisauce";
+import { Dispatch } from "redux";
 
 import { api } from "../../../services/api";
 import {
+  Category,
   GET_CATEGORIES,
   CREATE_CATEGORY,
   UPDATE_CATEGORY,
@@ -9,27 +10,13 @@ import {
   CATEGORIES_ERROR,
 } from "../types";
 
-type Category = {
-  _id: string;
-  name: string;
-  description: string;
-};
-
-export const getCategories = () => async (dispatch: any) => {
+export const getCategories = () => async (dispatch: Dispatch) => {
   try {
-    const categories = await api
-      .get("/categories")
-      .then((response: ApiResponse<any>) => {
-        const { ok, data } = response;
-
-        if (ok) {
-          return data;
-        }
-      });
+    const { data } = await api.get("/categories");
 
     return dispatch({
       type: GET_CATEGORIES,
-      payload: categories,
+      payload: data,
     });
   } catch (e) {
     return dispatch({
@@ -39,39 +26,41 @@ export const getCategories = () => async (dispatch: any) => {
   }
 };
 
-export const createCategory = (category: Category) => async (dispatch: any) => {
-  try {
-    const response = await api.post("/categories", category);
+export const createCategory =
+  (category: Category) => async (dispatch: Dispatch) => {
+    try {
+      const { data } = await api.post("/categories", category);
 
-    return dispatch({
-      type: CREATE_CATEGORY,
-      payload: response.data,
-    });
-  } catch (e) {
-    return dispatch({
-      type: CATEGORIES_ERROR,
-      payload: console.log(e),
-    });
-  }
-};
+      return dispatch({
+        type: CREATE_CATEGORY,
+        payload: data,
+      });
+    } catch (e) {
+      return dispatch({
+        type: CATEGORIES_ERROR,
+        payload: console.log(e),
+      });
+    }
+  };
 
-export const updateCategory = (category: Category) => async (dispatch: any) => {
-  try {
-    const response = await api.put(`/categories/${category._id}`, category);
+export const updateCategory =
+  (category: Category) => async (dispatch: Dispatch) => {
+    try {
+      const { data } = await api.put(`/categories/${category._id}`, category);
 
-    return dispatch({
-      type: UPDATE_CATEGORY,
-      payload: response.data === null ? category : response.data,
-    });
-  } catch (e) {
-    return dispatch({
-      type: CATEGORIES_ERROR,
-      payload: console.log(e),
-    });
-  }
-};
+      return dispatch({
+        type: UPDATE_CATEGORY,
+        payload: data === null ? category : data,
+      });
+    } catch (e) {
+      return dispatch({
+        type: CATEGORIES_ERROR,
+        payload: console.log(e),
+      });
+    }
+  };
 
-export const deleteCategory = (id: string) => async (dispatch: any) => {
+export const deleteCategory = (id: string) => async (dispatch: Dispatch) => {
   try {
     await api.delete(`/categories/${id}`);
 

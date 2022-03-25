@@ -1,41 +1,21 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-
 import {
+  Product,
+  ProductsState,
   GET_PRODUCTS,
   CREATE_PRODUCT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
 } from "../types";
 
-type Product = {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  brand: string;
-  category: string;
-};
-
-type ActionProps = {
-  type: string;
-  payload: Product | Product[];
-};
-
-type InitialStateProps = {
-  products: Product[];
-  loading: boolean;
-};
-
-const INITIAL_STATE: InitialStateProps = {
+const INITIAL_STATE: ProductsState = {
   products: [],
   loading: true,
 };
 
 export default function products(
   state = INITIAL_STATE,
-  action: any //PayloadAction<ActionProps>
-) {
+  action: any
+): ProductsState {
   let newProducts: Product[] | [] = [];
   let productIndex: number = -1;
 

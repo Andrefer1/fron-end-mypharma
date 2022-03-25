@@ -15,14 +15,19 @@ type Data = {
     category?: string
 }
 
-interface RegisterProps {
-    data?: Data[];
-    typeOfData?: string;
+interface OwnProps {
+    data: Data[]
+    typeOfData: string
+}
+
+interface DispatchProps {
     setData?: (value: any) => void
     setSessionIsActive: (value: undefined) => void
 }
 
-const Header = ({ data, typeOfData, setData, setSessionIsActive }: RegisterProps) => {
+type HeaderProps = OwnProps & DispatchProps
+
+const Header = ({ data, typeOfData, setData, setSessionIsActive }: HeaderProps) => {
     const [username, setUsername] = useState<string | null>('')
 
     useEffect(() => {

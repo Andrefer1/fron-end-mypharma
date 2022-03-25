@@ -1,17 +1,13 @@
-import { GET_BRANDS, CREATE_BRAND, UPDATE_BRAND, DELETE_BRAND } from "../types";
+import {
+  Brand,
+  BrandsState,
+  GET_BRANDS,
+  CREATE_BRAND,
+  UPDATE_BRAND,
+  DELETE_BRAND,
+} from "../types";
 
-type Brand = {
-  _id: string;
-  name: string;
-  description: string;
-};
-
-type InitialStateProps = {
-  brands: Brand[];
-  loading: boolean;
-};
-
-const INITIAL_STATE: InitialStateProps = {
+const INITIAL_STATE: BrandsState = {
   brands: [],
   loading: true,
 };

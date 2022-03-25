@@ -13,13 +13,13 @@ type Data = {
     category?: string
 }
 
-interface RegisterProps {
+interface SearchProps {
     datas: Data[] | undefined;
     typeOfData: string | undefined;
     setData: ((value: any) => void) | undefined;
 }
 
-const Search = ({ datas, typeOfData, setData }: RegisterProps) => {
+const Search = ({ datas, typeOfData, setData }: SearchProps) => {
     const [search, setSearch] = useState<string>("");
 
     useEffect(() => {

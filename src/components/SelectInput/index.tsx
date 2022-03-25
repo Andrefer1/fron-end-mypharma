@@ -13,7 +13,6 @@ type BrandsOrCategories = {
 
 interface SelectInputProps {
     name: string;
-    typ?: string
     icon: IconType;
     brandsOrCategories: BrandsOrCategories[]
     nameDataBeingUpdated?: string

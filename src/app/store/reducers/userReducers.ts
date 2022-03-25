@@ -1,26 +1,6 @@
-import { PayloadAction } from "@reduxjs/toolkit";
+import { UserState, GET_USER, CREATE_USER } from "../types";
 
-import { GET_USER, CREATE_USER } from "../types";
-
-type User = {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword?: string;
-};
-
-type ActionProps = {
-  type: string;
-  payload: User;
-};
-
-type InitialStateProps = {
-  user: User;
-  loading: boolean;
-};
-
-const INITIAL_STATE: InitialStateProps = {
+const INITIAL_STATE: UserState = {
   user: {
     _id: "",
     name: "",
@@ -31,10 +11,7 @@ const INITIAL_STATE: InitialStateProps = {
   loading: true,
 };
 
-export default function UserReducers(
-  state = INITIAL_STATE,
-  action: any //PayloadAction<ActionProps>
-) {
+export default function UserReducers(state = INITIAL_STATE, action: any) {
   switch (action.type) {
     case GET_USER:
       return {

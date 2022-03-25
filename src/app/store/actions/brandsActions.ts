@@ -1,7 +1,8 @@
-import { ApiResponse } from "apisauce";
+import { Dispatch } from "redux";
 
 import { api } from "../../../services/api";
 import {
+  Brand,
   GET_BRANDS,
   CREATE_BRAND,
   UPDATE_BRAND,
@@ -9,26 +10,13 @@ import {
   BRANDS_ERROR,
 } from "../types";
 
-type Brand = {
-  _id: string;
-  name: string;
-};
-
-export const getBrands = () => async (dispatch: any) => {
+export const getBrands = () => async (dispatch: Dispatch) => {
   try {
-    const brands = await api
-      .get("/brands")
-      .then((response: ApiResponse<any>) => {
-        const { ok, data } = response;
-
-        if (ok) {
-          return data;
-        }
-      });
+    const { data } = await api.get("/brands");
 
     return dispatch({
       type: GET_BRANDS,
-      payload: brands,
+      payload: data,
     });
   } catch (e) {
     return dispatch({
@@ -38,13 +26,13 @@ export const getBrands = () => async (dispatch: any) => {
   }
 };
 
-export const createBrand = (brand: Brand) => async (dispatch: any) => {
+export const createBrand = (brand: Brand) => async (dispatch: Dispatch) => {
   try {
-    const response = await api.post("/brands", brand);
+    const { data } = await api.post("/brands", brand);
 
     return dispatch({
       type: CREATE_BRAND,
-      payload: response.data,
+      payload: data,
     });
   } catch (e) {
     return dispatch({
@@ -54,13 +42,13 @@ export const createBrand = (brand: Brand) => async (dispatch: any) => {
   }
 };
 
-export const updateBrand = (brand: Brand) => async (dispatch: any) => {
+export const updateBrand = (brand: Brand) => async (dispatch: Dispatch) => {
   try {
-    const response = await api.put(`/brands/${brand._id}`, brand);
+    const { data } = await api.put(`/brands/${brand._id}`, brand);
 
     return dispatch({
       type: UPDATE_BRAND,
-      payload: response.data === null ? brand : response.data,
+      payload: data === null ? brand : data,
     });
   } catch (e) {
     return dispatch({
@@ -70,7 +58,7 @@ export const updateBrand = (brand: Brand) => async (dispatch: any) => {
   }
 };
 
-export const deleteBrand = (id: string) => async (dispatch: any) => {
+export const deleteBrand = (id: string) => async (dispatch: Dispatch) => {
   try {
     await api.delete(`/brands/${id}`);
 

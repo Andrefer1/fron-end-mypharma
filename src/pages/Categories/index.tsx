@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { bindActionCreators } from "redux"
+import { bindActionCreators, Dispatch } from "redux"
 import { connect } from "react-redux"
 import { FiPlusSquare } from "react-icons/fi";
 
 import * as CategoriesActions from "../../app/store/actions/categoriesActions"
+import { Category } from "../../app/store/types";
+import { ApplicationState } from "../../app/store";
 
 import ModalCategory from "../../components/ModalCategory";
 import Header from "../../components/Header";
@@ -12,19 +14,16 @@ import { Card } from "../../components/Card";
 
 import { Container, Content, CategoryStyles } from "./styles";
 
-type TCategory = {
-    _id: string;
-    name: string;
-    description: string;
-};
-
-type CategoriesProps = {
-    categories: TCategory[]
-    getCategories: any
-    createCategory: any
-    updateCategory: any
-    deleteCategory: any
+interface StateProps {
+    categories: Category[]
 }
+
+interface DispatchProps {
+    getCategories: () => void
+    deleteCategory: (id: string) => void
+}
+
+type CategoriesProps = StateProps & DispatchProps
 
 const Categories = ({
     categories,
@@ -32,13 +31,13 @@ const Categories = ({
     deleteCategory
 }: CategoriesProps) => {
 
-    const [allCategories, setAllCategories] = useState<TCategory[]>([]);
+    const [allCategories, setAllCategories] = useState<Category[]>([]);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [action, setAction] = useState<string>("");
     const [
         updatingCategory,
         setUpdatingCategory
-    ] = useState<TCategory | undefined>(undefined);
+    ] = useState<Category | undefined>(undefined);
     const [session, setSession] = useState<string | void>("")
 
     const navigate = useNavigate();
@@ -51,14 +50,13 @@ const Categories = ({
         }
     }, [session, navigate])
 
-
     useEffect(() => {
         getCategories()
     }, [getCategories])
 
     function toggleModal(
         action: string = "",
-        updatingCategory: TCategory | undefined = undefined
+        updatingCategory: Category | undefined = undefined
     ): void {
 
         setAction(action)
@@ -103,27 +101,29 @@ const Categories = ({
 
                 <CategoryStyles>
                     {!allCategories
-                        ? categories.map((category: TCategory) => (
-                            <Card
-                                key={category._id}
-                                category={category}
-                                toggleModal={toggleModal}
-                                deleteData={deleteCategory}
-                            />
-                        ))
-                        : allCategories
-                            ? allCategories.map((category: TCategory) => (
-                                <div key={category._id}>
-                                    <Card
-                                        category={category}
-                                        toggleModal={toggleModal}
-                                        deleteData={deleteCategory}
-                                    />
-                                </div>
+                        ? categories
+                            ? categories.map((category: Category) => (
+                                <Card
+                                    key={category._id}
+                                    category={category}
+                                    toggleModal={toggleModal}
+                                    deleteData={deleteCategory}
+                                />
                             ))
                             : (
                                 <p>Não há categorias cadastradas!</p>
                             )
+                        : allCategories
+                        && allCategories.map((category: Category) => (
+                            <div key={category._id}>
+                                <Card
+                                    category={category}
+                                    toggleModal={toggleModal}
+                                    deleteData={deleteCategory}
+                                />
+                            </div>
+                        ))
+
                     }
                 </CategoryStyles>
             </Content>
@@ -131,11 +131,11 @@ const Categories = ({
     )
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: ApplicationState) => ({
     categories: state.categories.categories
 })
 
-const mapDispatchToProps = (dispatch: any) =>
+const mapDispatchToProps = (dispatch: Dispatch) =>
     bindActionCreators(CategoriesActions, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories)
